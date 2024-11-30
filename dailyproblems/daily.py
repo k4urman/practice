@@ -12,8 +12,12 @@ What if, instead of being able to climb 1 or 2 steps at a time, you could climb 
 '''
 
 n = 4
+X = {1,2}
 
-def staircase(n):
-    if n <= 1:
+def staircase(n, X):
+    if n < 0:
+        return 0
+    elif n == 0:
         return 1
-    return staircase(n - 1) + staircase(n - 2)
+    else:
+        return sum(staircase(n - x, X) for x in X)
