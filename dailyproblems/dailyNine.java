@@ -28,8 +28,6 @@ class Solution {
             rand[nums1.length + i] = nums2[i];
         }
 
-        Arrays.sort(rand);
-
         if (rand.length % 2 == 0) {
             return (double) (rand[rand.length / 2 - 1] + rand[rand.length / 2]) / 2;
         } else { 
