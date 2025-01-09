@@ -8,14 +8,14 @@ Return the maximum profit you can achieve from this transaction. If you cannot a
 
 class Solution {
     public int maxProfit(int[] prices) {
-        int res = 0;
+        int best = 0;
 
         // Explore all possible ways to buy and sell stock
         for (int i = 0; i < prices.length - 1; i++) {
             for (int j = i + 1; j < prices.length; j++) {
-                res = Math.max(res, prices[j] - prices[i]);
+                best = Math.max(best, prices[j] - prices[i]);
             }
         }
-        return res;
+        return best;
     }
 }
