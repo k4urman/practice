@@ -19,15 +19,19 @@ Explanation: Your function can return either index number 1 where the peak eleme
 
 class Solution {
     public int findPeakElement(int[] nums) {
-        int peak = 0;
-        int index = 0;
+        int n = nums.length;
 
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] > peak){
-                peak = nums[i];
-                index = i;
+        if (n == 1 || nums[0] > nums[1]) {
+            return 0;
+        }
+        if (nums[n - 1] > nums[n - 2]) {
+            return n - 1;
+        }
+        for (int i = 1; i < n - 1; i++) {
+            if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) {
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 }
