@@ -23,7 +23,6 @@ class Solution {
         int[] ans = new int[k];
         
         for (int x = Math.max(0, k - nums2.length); x <= Math.min(k, nums1.length); ++x) {
-            // Create the first array of the maximum numbers
             int[] stk1 = new int[x];
             int top1 = -1;
             int remain1 = nums1.length - x;
@@ -39,7 +38,6 @@ class Solution {
                 }
             }
 
-            // Create the second array of the maximum numbers
             int[] stk2 = new int[k - x];
             int top2 = -1;
             int remain2 = nums2.length - (k - x);
@@ -55,7 +53,6 @@ class Solution {
                 }
             }
 
-            // Merge the two arrays
             int[] merged = new int[k];
             int i = 0, j = 0;
             for (int idx = 0; idx < k; ++idx) {
@@ -66,7 +63,6 @@ class Solution {
                 }
             }
 
-            // Compare merged array with the current answer
             if (compare(merged, ans, 0, 0)) {
                 ans = merged;
             }
