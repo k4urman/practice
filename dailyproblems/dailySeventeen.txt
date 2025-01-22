@@ -1,0 +1,18 @@
+whoami - says the username of the currently logged in users
+man - short for manual, and it purely perfomative. It gives the manual for the command. Write as man <command>
+clear - clears the terminal to make a fresh terminal
+clear synopsis - [-T] [-V] [-x]-when you clear this will not clear the history! (Also use ctrl l to clear)
+pwd - print working directory. so user/dir1/dir2 etc. etc.
+ls - short for list. lists the contents of the folder. ALOT of options [-l]-long listing format, [-a]-does not ignore any files starting with . period. Also can combine formats and put the together ex. ls -al
+cd - short for change directory. No man page for cd. cd.. moves to one dir back. and just plain cd goes to the original pwd.
+mkdir - make directory. can male multiple folders and even nest a folder
+touch - create a empty file. does not open it yet. 
+rmdir - remove directory
+rm - remove file.
+open - opens the application, file, etc OUTSIDE of the terminal.
+mv - moves the file. mv <file, or multiple name> <destination path>
+cp - copy files or folders. mv <file/folders, or multiple name> <destination path>
+head - output the first parts of a file. 
+tail - bottom of the file is outputted.
+date - prints current date a time
+
