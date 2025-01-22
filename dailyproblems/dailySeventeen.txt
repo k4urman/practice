@@ -21,6 +21,35 @@ date - prints current date a time
  echo - echos a string or number and just reoutputs it. better way is to redirect to anotehr file. ex. echo "<text>" > config.txt
  wc - word count. literally just word count or even bytes for a file. ex. wc song.txt. first is lines, then words, # of btyes and lastly the name of the file. 
  piping - | this symbol. ls -al | wc, makes the word count of the printed output
+ sort - sorts information. sort everything.txt. does not change the file, but changes the output
+ uniq - often used with sort. reports and omit repated lines
+ expansions - echo ~ -> will prent the /Users/<username>, echo $PATH prints the very loing path we are in, echo $USER to say the name
+ diff - finds the differences between two files. diff <file1> <file2>
+ find - find files or folders. find based on name, modifciation time and many others. find <destination to find in> -name <name>
+ grep - find text within files. ex. grep <text> <file to search inside>
+ du - disk usage. find the sizes of files and directoreis. du <file/folder destination>
+ df - disk free. finds the amount of disk left. each individual. how much it allocates and has yet to use. 
+ history - just write history to find the commands I used prior with the number in order.
+ ps - view the processes on our computer. 
+ top - display and updates on processes. Lists the top most menory or disk intensive processes.
+ kill - kill programs or even kill the signal or PID. ps a shows the PID and when you say kill <PID> it will specifically kill that 1. kill -9 automatically kills.
+ killall - killall allows name of the processes and if there are multiple you can kill them all. ex. killall -9 node <- program node
+ jobs, bg, fg - ctrl c to stop, ctrl z suspends it. Jobs tells what we have stopped and started. 
+ gzip - compresses files. you should probably try gzip -k <filename> or gzip -c <filename> > <another file>. This will keep the original file. gzip -d allows unzips
+ gunzip - unzips! gunzip <filename>
+ tar - create an archive or multiple files into one file and compress. ex. tar -cf <archive.tar> <file1> <file2>
+ nano - opens and allows editing for the file. beginner friendly. We use NVIM!
+ alias - allows our own commands to use later. ex. alias mls='ls -la'. just alias lists all our alaises.
+ xargs - builds and executes commands form standard commands. ex. find . -name "*.txt" | xargs wc - which counts all the words in txt files
+ ln -create links between files.ex. ln -s /originalpath /smallerpath
+ who - displays the list of users logged into the system
+ su - substitue user. allows to swithc to another user account, requies password. ex. su root
+ sudo - pretty please to do root stuff
+ passwd - used to change a user's password
+ chown - changes ownership of a file to another person. ex. chown user:group filename
+ permissions - determine who can read, write, or execute a file
+ chmod - changes the file mode (permissions) of a file or directory. You can set permissions using symbolic or numeric modes.
+
 
 
 
