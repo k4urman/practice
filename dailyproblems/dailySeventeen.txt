@@ -15,4 +15,12 @@ cp - copy files or folders. mv <file/folders, or multiple name> <destination pat
 head - output the first parts of a file. 
 tail - bottom of the file is outputted.
 date - prints current date a time
+(>) - redirecting standard output into a file. ex. date > today.txt
+ cat - prints all things in the file in the terminal
+ less - reads the file in a nice UI unlike the cat command, much better for a longer file. 
+ echo - echos a string or number and just reoutputs it. better way is to redirect to anotehr file. ex. echo "<text>" > config.txt
+ wc - word count. literally just word count or even bytes for a file. ex. wc song.txt. first is lines, then words, # of btyes and lastly the name of the file. 
+ piping - | this symbol. ls -al | wc, makes the word count of the printed output
+
+
 
