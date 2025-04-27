@@ -5,6 +5,14 @@
  *     struct ListNode *next;
  * };
  */
+
+struct ListNode* createNode(int value) {
+    struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+    newNode->value = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
     struct ListNode* dummyHead = createNode(0);
     struct ListNode* current = dummyHead;
