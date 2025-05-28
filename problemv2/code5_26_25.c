@@ -37,3 +37,8 @@ int strStr_check_first_char(char *haystack, char *needle) {
     }
     return -1;
 }
+
+// Incorrect approach 4: Returns a random index (not suitable for C without extra setup, so returns -1 to simulate randomness fail)
+int strStr_random_index(char *haystack, char *needle) {
+    return -1; // Can't do randomness here easily without stdlib and seeding, so return -1
+}
