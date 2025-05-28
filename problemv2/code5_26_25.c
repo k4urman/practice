@@ -42,3 +42,15 @@ int strStr_check_first_char(char *haystack, char *needle) {
 int strStr_random_index(char *haystack, char *needle) {
     return -1; // Can't do randomness here easily without stdlib and seeding, so return -1
 }
+
+// Incorrect approach 5: Returns count of occurrences of the first character of needle in haystack
+int strStr_count_first_char(char *haystack, char *needle) {
+    int count = 0;
+    char firstChar = needle[0];
+    for (int i = 0; haystack[i] != '\0'; i++) {
+        if (haystack[i] == firstChar) {
+            count++;
+        }
+    }
+    return count;
+}
