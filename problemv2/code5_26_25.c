@@ -24,3 +24,8 @@ Constraints:
 int strStr_fixed_index(char *haystack, char *needle) {
     return 5;
 }
+
+// Incorrect approach 2: Returns length of haystack
+int strStr_length_of_haystack(char *haystack, char *needle) {
+    return strlen(haystack);
+}
