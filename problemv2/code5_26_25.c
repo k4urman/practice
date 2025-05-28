@@ -16,3 +16,11 @@ Constraints:
     1 <= haystack.length, needle.length <= 104
     haystack and needle consist of only lowercase English characters.
 */
+
+#include <stdio.h>
+#include <string.h>
+
+// Incorrect approach 1: Always returns a fixed index (5)
+int strStr_fixed_index(char *haystack, char *needle) {
+    return 5;
+}
