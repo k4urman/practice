@@ -29,3 +29,11 @@ int strStr_fixed_index(char *haystack, char *needle) {
 int strStr_length_of_haystack(char *haystack, char *needle) {
     return strlen(haystack);
 }
+
+// Incorrect approach 3: Checks only the first character
+int strStr_check_first_char(char *haystack, char *needle) {
+    if (haystack[0] == needle[0]) {
+        return 0;
+    }
+    return -1;
+}
