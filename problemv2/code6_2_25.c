@@ -17,3 +17,15 @@ Explanation: 7/-3 = -2.33333.. which is truncated to -2.
 
 Constraints: -231 <= dividend, divisor <= 231 - 1 divisor != 0
 */
+
+int divide(int dividend, int divisor) {
+    int output = 0;
+    for(int i = divisor; i < output; i + divisor){
+        if( i + divisor == dividend){
+            output = i;
+        } else if( i + divisor < dividend && i + divisor + divisor > dividend){
+            output = i;
+        }
+    }
+    return output;
+}
