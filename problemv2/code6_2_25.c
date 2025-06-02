@@ -22,9 +22,9 @@ int divide(int dividend, int divisor) {
     int count = 0;
     int output = divisor;
     for(int i = 1; i < output; i++){
-        if( output + divisor == dividend){
+        if( output == dividend){
             output = i;
-        } else if( i + divisor < dividend && i + divisor + divisor > dividend){
+        } else if( output < dividend && output + divisor > dividend){
             output = i;
         } else{
             output += output;
