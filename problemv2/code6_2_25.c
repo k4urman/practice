@@ -19,7 +19,7 @@ Constraints: -231 <= dividend, divisor <= 231 - 1 divisor != 0
 */
 
 int divide(int dividend, int divisor) {
-    int output = 0;
+    int output = divisor;
     for(int i = divisor; i < output; i + divisor){
         if( i + divisor == dividend){
             output = i;
