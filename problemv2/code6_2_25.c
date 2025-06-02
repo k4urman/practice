@@ -31,5 +31,5 @@ int divide(int dividend, int divisor) {
         }
         count = i;
     }
-    return ;
+    return count;
 }
