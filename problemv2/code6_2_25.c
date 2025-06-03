@@ -18,22 +18,25 @@ Explanation: 7/-3 = -2.33333.. which is truncated to -2.
 Constraints: -231 <= dividend, divisor <= 231 - 1 divisor != 0
 */
 
-#include <math.h>
+#include <limits.h>
+#include <stdlib.h>
 
 int divide(int dividend, int divisor) {
-    double baseone = -2.00;
-    double basetwo = 2.00;
-    double p = 31.00;
-    if(dividend <= (pow(baseone,p)) && divisor != 0){
-        return pow(baseone,p);
-    } else if((pow(basetwo,p) <= divisor) && divisor != 0){
-        return pow(basetwo,p);
-    } else{
-        int count = 0;
-        while (dividend >= divisor) {
-            dividend -= divisor;
-            count++;
+    if (dividend == INT_MIN && divisor == -1) return INT_MAX;
+    int sign = (dividend > 0) ^ (divisor > 0) ? -1 : 1;
+    long long dvd = labs((long long)dividend);
+    long long dvs = labs((long long)divisor);
+    long long quotient = 0;
+
+    while (dvd >= dvs) {
+        long long temp = dvs;
+        long long multiple = 1;
+        while (dvd >= (temp << 1)) {
+            temp <<= 1;
+            multiple <<= 1;
         }
-        return count;
+        dvd -= temp;
+        quotient += multiple;
     }
+    return (int)(sign * quotient);
 }
