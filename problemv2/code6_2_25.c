@@ -30,16 +30,9 @@ int divide(int dividend, int divisor) {
         return pow(basetwo,p);
     } else{
         int count = 0;
-        int output = divisor;
-        for(int i = 1; i < output; i++){
-            if( output == dividend){
-                output = i;
-            } else if( output < dividend && output + divisor > dividend){
-                output = i;
-            } else{
-                output += output;
-            }
-            count = i;
+        while (dividend >= divisor) {
+            dividend -= divisor;
+            count++;
         }
         return count;
     }
