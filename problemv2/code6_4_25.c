@@ -14,9 +14,15 @@ Constraints:
     a and b consist only of '0' or '1' characters.
     Each string does not contain leading zeros except for the zero itself.
 */
-
 char* addBinary(char* a, char* b) {
-    int aa = a- 0;
+    char p[] = "";
+    int aa = a - 0;
     int bb = b - 0;
     int n = aa + bb;
+
+    if (n > 0) {
+        decToBinaryRecursive(n / 2);
+        p += n % 2;
+    }
+    return p;
 }
