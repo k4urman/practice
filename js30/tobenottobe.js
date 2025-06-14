@@ -32,7 +32,7 @@ var expect = function(val) {
                 throw new Error("Not Equal");
             }
         },
-        toNotBe: function(n){
+        notToBe: function(n){
             if(val != n){
                 return true;
             } else {
