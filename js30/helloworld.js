@@ -19,3 +19,18 @@ f({}, null, 42); // "Hello World"
 
 Any arguments could be passed to the function but it should still always return "Hello World".
 */
+
+/**
+ * @return {Function}
+ */
+var createHelloWorld = function() {
+    
+    return function(...args) {
+        return "Hello World";
+    }
+};
+
+/**
+ * const f = createHelloWorld();
+ * f(); // "Hello World"
+ */
