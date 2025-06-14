@@ -24,20 +24,22 @@ Explanation: 5 !== null so this expression returns true.
  * @return {Object}
  */
 var expect = function(val) {
-    return toBe: function(n){
-        if(val == n){
-            return true;
-        } else {
-            return false;
+    return{
+        toBe: function(n){
+            if(val == n){
+                return true;
+            } else {
+                return false;
+            }
+        },
+        toNotBe: function(n){
+            if(vale != n){
+                return true;
+            } else {
+                return false;
+            }
         }
-    }
-    return toNotBe: function(n){
-        if(vale != n){
-            return true;
-        } else {
-            return false;
-        }
-    }
+    } 
 };
 
 /**
