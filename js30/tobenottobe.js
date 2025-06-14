@@ -18,3 +18,29 @@ Input: func = () => expect(5).notToBe(null)
 Output: {"value": true}
 Explanation: 5 !== null so this expression returns true.
 */
+
+/**
+ * @param {string} val
+ * @return {Object}
+ */
+var expect = function(val) {
+    return toBe: function(n){
+        if(val == n){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return toNotBe: function(n){
+        if(vale != n){
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+/**
+ * expect(5).toBe(5); // true
+ * expect(5).notToBe(5); // throws "Equal"
+ */
