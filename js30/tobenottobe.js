@@ -29,14 +29,14 @@ var expect = function(val) {
             if(val == n){
                 return true;
             } else {
-                return "Not Equal";
+                throw new Error("Not Equal");
             }
         },
         toNotBe: function(n){
             if(val != n){
                 return true;
             } else {
-                return false;
+                throw new Error("Equal");
             }
         }
     } 
