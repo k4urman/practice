@@ -29,11 +29,11 @@ var expect = function(val) {
             if(val == n){
                 return true;
             } else {
-                return false;
+                return "Not Equal";
             }
         },
         toNotBe: function(n){
-            if(vale != n){
+            if(val != n){
                 return true;
             } else {
                 return false;
