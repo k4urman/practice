@@ -29,3 +29,27 @@ Constraints:
     1 <= num <= 104
     num consists of only 6 and 9 digits
 */
+
+#include <cmath>
+
+
+class Solution {
+public:
+    int maximum69Number (int num) {
+        int fin = num;
+        int check,l = 0;
+        for(int i = 1; i < num; i *= 10){
+            l++;
+        }
+
+        while (check != 1){
+            int temp = (num-(num % (int) pow(10,l)))/ (int) pow(10,l);
+            if(temp == 6){
+                fin = num + (3*(int) pow(10,l));
+                check = 1;
+            }
+            l--;
+        }
+        return fin;
+    }
+};
