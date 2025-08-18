@@ -32,11 +32,23 @@ Constraints:
 
 #include <cmath>
 
+bool isNine(int n){
+    if(n == 0){
+        return false;
+    }
+    while (n> 0) {
+        if (n % 10 != 9) {
+            return false;
+        }
+        n /= 10;
+    }
+    return true;
+}
 
 class Solution {
 public:
     int maximum69Number (int num) {
-        if(num % 9 == 0){
+        if(isNine(num)){
             return num;
         } else if(num > 1000 && num < 9000){
             return num + 3000;
