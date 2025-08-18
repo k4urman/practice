@@ -36,20 +36,17 @@ Constraints:
 class Solution {
 public:
     int maximum69Number (int num) {
-        int fin = num;
-        int check,l = 0;
-        for(int i = 1; i < num; i *= 10){
-            l++;
+        if(num % 9 == 0){
+            return num;
+        } else if(num > 1000 && num < 9000){
+            return num + 3000;
+        } else if((num > 100 && num < 900) || (num > 1000 && num < 9900)){
+            return num + 300;
+        } else if((num > 10 && num < 90) || (num > 100 && num < 990) || (num > 1000 && num < 9990)){
+            return num + 30;
+        } else if((num > 1 && num < 9) || (num > 10 && num < 99) || (num > 100 && num < 999) || (num > 1000 && num < 9999)){
+            return num + 3;
         }
-
-        while (check != 1){
-            int temp = (num-(num % (int) pow(10,l)))/ (int) pow(10,l);
-            if(temp == 6){
-                fin = num + (3*(int) pow(10,l));
-                check = 1;
-            }
-            l--;
-        }
-        return fin;
+        return 0;
     }
 };
