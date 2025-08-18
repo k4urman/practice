@@ -30,8 +30,6 @@ Constraints:
     num consists of only 6 and 9 digits
 */
 
-#include <cmath>
-
 bool isNine(int n){
     if(n == 0){
         return false;
