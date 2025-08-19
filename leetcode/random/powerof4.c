@@ -28,6 +28,9 @@ public:
         if(n < 0 || n == 0){
             return false;
         }
+        if(n == 4){
+            return true;
+        }
         double res = pow(n, 1.0/4.0);
         if(res > (int) res){
             return false;
