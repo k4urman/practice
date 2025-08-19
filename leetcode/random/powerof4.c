@@ -19,3 +19,16 @@ Output: true
 Constraints:
     -231 <= n <= 231 - 1
 */
+
+#include <math.h>
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        double res = pow(n, 1.0/4.0);
+        if(res > (int) res){
+            return false;
+        }
+        return true; 
+    }
+};
