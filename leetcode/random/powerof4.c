@@ -25,6 +25,9 @@ Constraints:
 class Solution {
 public:
     bool isPowerOfFour(int n) {
+        if(n < 0){
+            return false;
+        }
         double res = pow(n, 1.0/4.0);
         if(res > (int) res){
             return false;
