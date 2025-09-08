@@ -44,3 +44,9 @@ public:
         return count;
     }
 };
+
+/*
+as long as current word != " " ++ the count, else if == " " -> count = 0
+
+ends in space? -> 
+*/
