@@ -20,3 +20,16 @@ Output: 30
 Explanation:
 The input binary string 1111111111111111111111111111101 has a total of thirty set bits.
 */
+
+class Solution {
+    public int hammingWeight(int n) {
+        int count = 0;
+        String b = Integer.toBinaryString(n);
+        for(int i = 0; i < b.length(); i ++){
+            if (b.charAt(i) == '1'){
+                count++;
+            }
+        }
+        return count;
+    }
+}
