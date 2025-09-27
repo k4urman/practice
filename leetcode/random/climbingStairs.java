@@ -25,7 +25,7 @@ Constraints:
     1 <= n <= 45
 */
 
-class Solution {
+class Solution { // T(n) of 2^n which will cause runtime for n <= 45
     public int climbStairs(int n) {
         if (n == 1 || n == 0){
             return 1;
