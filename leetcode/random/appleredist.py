@@ -33,26 +33,34 @@ Constraints:
 class Solution:
     def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
 
-        x = sum(apple)
-        capacity.sort(reverse=True)
-        result = 0
-        while x > 0:
+        # first solution
+        x = sum(apple) # find the sum of all the values in array apple
+        capacity.sort(reverse=True) # sort it by lowest to largest
+        result = 0 # this is the number of baskets needed
+        while x > 0: # for each value in the sum, we subtract the index value of the sorted array
             x -= capacity[result]
             result += 1
-        return result
+        return result # return logorithmic time O(n + m log(m)
         
+        # second solution - counting sort
+        x = sum(apple) # sum of all the values in apple
 
-        x = sum(apple)
-
-        arr = [0] * 51
-        high = 0
+        arr = [0] * 51 # make an array from index 0 to 50 with all 0's
+        high = 0 
         low = 51
-        for c in capacity:
+        
+        # for every value in capacity, if we find a match, we count 1 for it in the arr array
+        # we also change the high and low to find the range
+        for c in capacity: 
             arr[c] += 1
             high = max(high, c)
             low = min(low, c)
 
-        result = 0
+        result = 0 # number of baskets needed
+
+        # from the highest value in the range capacity to the lowest, we go down by 1
+        # for each counted number we keep looping and -1 the total sum x and the count value for the number
+        # we add it all into the result and return
         for i in range(high, low - 1, -1):
             while arr[i] > 0 and x > 0:
                 x -= i
