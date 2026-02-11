@@ -37,24 +37,41 @@ Constraints:
 
 class Solution:
     def longestBalanced(self, nums: List[int]) -> int:
+        # size of the array nums
         n = len(nums)
+        # the count of longest subarray
         r = 0
 
+        # how many of the previous ones we've seen as an array of 0's, it is the largest value in nums + 1
         seen = [0] * (max(nums) + 1)
-
+        # from index 0 to index n
         for i in range(n):
+            # checks if we have already found the longest subarray
             if n - i <= r: 
+                # breaks if so
                 break
+
+            # creates an array A, with two 0 values
             A = [0, 0]
             
+            # for loop from i to n
             for j in range(i, n):
+                #grabs whatever value is at nums[j]
                 val = nums[j]
+
+                # if whatever value in nums in seen is 0 then
                 if seen[val] != i + 1:
+                    # it makes the index i + 1, notifying that it was visted at THAT index
                     seen[val] = i + 1
+                    # makes A's first value val and increments by 1
                     A[val & 1] += 1
 
+                # sees if the two values are indeed equal
                 if A[0] == A[1]:
+                    # if they are equal, then we return the max
                     r = max(r, j - i + 1)
 
+        # return the digit of the longest subarray
         return r
+
 
