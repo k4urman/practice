@@ -1,0 +1,349 @@
+\documentclass[11pt]{article}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{fourier-orns}
+\usepackage{algorithm, algpseudocode} % For pseudo code
+\usepackage{tabto}
+\usepackage{amsmath, amsthm, amssymb, amsfonts} % Linear algebra and logic related symbols
+\usepackage{color}
+\usepackage{fancyhdr} % Header
+\usepackage{enumitem} % More option for enumeration and itemization
+\usepackage{latexsym}
+\usepackage{multicol}
+\usepackage{fourier-orns}
+\usepackage{algorithm, algpseudocode} % For pseudo code
+\usepackage{tabto}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{color}
+\usepackage{fancyhdr} % Header
+\usepackage{enumitem} % More option for enumeration and itemization
+\usepackage{tikz}
+\usetikzlibrary{arrows} % graph
+\usepackage{url}
+\topmargin=-.01in    %0cm
+\textheight=9.0in     %24.1cm            
+\evensidemargin=0in %0cm
+\oddsidemargin=0.0in  %-.3cm
+\textwidth=6.5in    %16.5cm 
+
+\usepackage{amsmath}
+\usepackage[skip=1pt]{caption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tabularx}
+
+\title{MLH PE Fellowship Notes}
+\author{Maninder (Kaurman) Kaur}
+
+\begin{document}
+
+\maketitle
+
+\section*{Week 2: Linux Fundementals}
+
+Linux is an OS specifically better for open applications, more versatile, and overall better privacy options. All terminal functions run on Linux commands, so let's learn that. \\
+\noindent Scenario: System is Slow. To see why it's slow, they could use the \texttt{top} command to show summary info of list of processes or threads running on the Kernel. \\
+Next, check the Disk IO using \texttt{iostat} that checks the input/output to see CPU utilization, number of transfer/sec, bulk reads/writes and CPU metrics. \\
+Then, maybe they use \texttt{sar} that sees overall system performance. We could monitor things like CPU usage, Memory utilization, I/O device consumption, battery performance, etc. \\
+
+\begin{table}[ht]
+    \centering
+    \caption*{Folders in Linux}
+    \begin{tabular}{|c|l|}
+        \hline
+        / & primary directory \\
+        /bin & essential executable programs \\
+        /boot & files needed to boot system, such as kernal, boot config files, etc. \\
+        /dev &  devices nodes, used to interact with hardware\\
+        /etc & system-wide config files \\
+        /home & user home directories \\
+        /lib &  libraries required for /bin and /sbin \\
+        /lib64 & 64-bit libraries \\
+        /media & mount points for removable CDs, DVDs, etc. \\
+        /mnt & temporarily mounted filesystems \\
+        /opt & optional application software packages \\
+        /proc & virtual pseudo-filesystem that gives info about system and processes \\
+        /run & run-time variable data \\
+        /sys & virtial pseudo-filesystem that gives info about system and processes \\
+        /root & home directory of user \\
+        /sbin & essential system binaries \\
+        /srv & site-specific data \\
+        /tmp & temporary files \\
+        /usr & multi-user applications \\
+        /var & variable data that changes system operation \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\noindent VPS (Virtual Private Server) that you can SSH into and work on. Reliable performance, data protection, control, etc.
+
+\noindent Command line basics! This is where you tell the OS what to do. Remember, if you forget how a function works just do \texttt{man \{function name\}} or \texttt{--help}. \\
+
+\noindent Moving: \texttt{cd} allows you to move between directories, \texttt{pwd} allows you to see your location, and \texttt{ls} lets you see the contents in the folder you're in. \\
+
+\noindent Manipulating Files: \texttt{touch \{file name\}} lets you make a file, while \texttt{nano \{file name\}} lets you make a file and opens up and editor. \texttt{mkdir \{new folder name\}} makes a new directory while \texttt{rmdir} removes it. \texttt{cp} copies files, \texttt{mv} moves them, and \texttt{rm} removes them. \\
+
+\noindent Viewing: \texttt{cat \{file name\}} prints all the contents in the file. \texttt{head} shows you the default top 10 lines, and you can add \texttt{head -n \{number\}} to see more or less specific. \texttt{tail} works the same, but shows you the ending. \\
+
+\noindent Text Processing: \texttt{echo "message" > \{file name\}} allows you to print into something or simply onto the screen. \texttt{grep "find message" \{file name\}} returns every line that includes the message. \texttt{sed 's/\{text to replace\}/\{replacement text\}' \{file name\}} will replace all things from one message with another given a file name. To save the changes, add the tag \texttt{-i}. \texttt{sort \{file name\}} lexicographically sorts the file name from smallest to largest, and the extra argument after \texttt{| uniq} only shows distinct numbers. \\ \\
+
+\noindent Boot Sequence steps:
+\begin{itemize}
+    \item BIOS(Basic I/O System)/UEFI locates and executes the boot program or boot loader
+    \item Boot loader loads the kernal
+    \item Kernal starts the init process (pid=1)
+    \item Init manages system initialization, use systemd
+\end{itemize}
+
+\noindent BIOS contains all the code required to gain initial access to the keyboard, display screen, disk-drives, serial communications, etc. Typically placed in ROM chip (called ROM BIOS). 
+
+\noindent Almost all Linux distros use GRUB (GRand Unified Bootloader). GRUB can boot multiple OSs, network-based diskless booting, etc.
+
+\noindent System-wide config files are generally placed in \texttt{/etc} and their subdirectories, while ultra-specific are in home. Only text files should be in \texttt{/etc}. Files in \texttt{/etc/sysconfig} and it's subdirectories are used by many system utilities services. 
+
+\noindent \texttt{shutdown} is used to bring the system down in a secure fashion.
+
+
+
+
+\section*{Week 3: Scripting + Bash}
+Scripting is designed to automate tasks in the Linux interface. A Shell script is essentially a text file that contains a sequence of commands for a UNIX based OS. A Python script is a plain text file with the python extension containing Python text to execute with an interpreter. 
+
+\noindent A shell is a program that takes commands from user and gives it to the OS to process, an example of CLI (Command-Line Interface). Examples include, \texttt{bash, zsh, ksh, tcsh}. A terminal is a program that allows you to interact with the shell.
+
+\noindent This is what the \texttt{date} command does.
+\begin{lstlisting}[language=python]
+$ date
+Thu Jul 11 14:42:19 EST 2026
+\end{lstlisting}
+
+You will always need to start your bash script, ending in extension \texttt{.sh}, with this:
+\begin{lstlisting}[language=python]
+#!/bin/bash 
+\end{lstlisting}
+
+Here's an example where we can store a variable and also use the \texttt{echo} command:
+\begin{lstlisting}[language=python]
+#!/bin/bash
+
+echo "What is your name?"
+read PERSON
+echo "Hello, $PERSON"
+
+# in terminal
+$ ./test.sh
+What is your name?
+Creed!
+Hello, Creed!
+\end{lstlisting}
+
+\noindent To actually make the bash script executable, we use the following command: \texttt{chmod +x test.sh}.
+
+
+\begin{table}[htbp]
+    \centering
+    \caption*{Relational Operators}
+    \begin{tabularx}{\textwidth}{|c|X|X|}
+        \hline
+        -eq or = (string operators) & checks if value of two operands is equal or not & [\$a -eq \$b] is not true \\ \hline
+        -ne or != (string operators) & checks if value of two operands are not true & [\$a -ne \$b] is true \\ \hline
+        -gt & checks if the value of the left operand is greater than the value of the right operand & [\$a -gt \$b] is not true \\ \hline
+        -lt & checks is the value of the left operand is less than the value of the right operand & [\$a -lt \$b] is true \\ \hline
+        -ge & checks if the value of the left operand is greater than or equal to the value of the right operand & [\$a -ge \$b] is not true \\ \hline
+        -le & checks if the value of the left operand is less than or equal to the value of the right operand & [\$a -le \$b] is true \\ \hline
+        ! & logical negation & [!false] is true \\ \hline
+        -o & logical OR & [1 -o 0] is true \\ \hline
+        -a & logical AND & [1 -a 0] is false \\ \hline
+        -z & checks if given string operand size is zero & [-z \$a] is not true \\ \hline
+        -n & checks if given string operand size is non-zero & [-n \$a] is not false \\ \hline
+        str & checks if str is not the empty string & [\$a] is not false \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+
+
+\begin{table}[htbp]
+    \centering
+    \caption*{Unix File Test Operators}
+    \begin{tabularx}{\textwidth}{|l|X|l|}
+        \hline
+        -b file & Checks if the file is a block special file; if yes, then the condition becomes true. & [ -b \$file ] is false. \\ \hline
+        -c file & Checks if file is a character special file; if yes, then the condition becomes true. & [ -c \$file ] is false. \\ \hline
+        -d file & Checks if the file is a directory; if yes, then the condition becomes true. & [ -d \$file ] is not true. \\ \hline
+        -f file & Checks if file is an ordinary file as opposed to a directory or special file; if yes, then the condition becomes true. & [ -f \$file ] is true. \\ \hline
+        -g file & Checks if the file has its set group ID (SGID) bit set; if yes, then the condition becomes true. & [ -g \$file ] is false. \\ \hline
+        -k file & Checks if the file has its sticky bit set; if yes, then the condition becomes true. & [ -k \$file ] is false. \\ \hline
+        -p file & Checks if the file is a named pipe; if yes, then the condition becomes true. & [ -p \$file ] is false. \\ \hline
+        -t file & Checks if the file descriptor is open and associated with a terminal; if yes, then the condition becomes true. & [ -t \$file ] is false. \\ \hline
+        -u file & Checks if the file has its Set User ID (SUID) bit set; if yes, then the condition becomes true. & [ -u \$file ] is false. \\ \hline
+        -r file & Checks if the file is readable; if yes, then the condition becomes true. & [ -r \$file ] is true. \\ \hline
+        -w file & Checks if the file is writable; if yes, then the condition becomes true. & [ -w \$file ] is true. \\ \hline
+        -x file & Checks if the file is executable; if yes, then the condition becomes true. & [ -x \$file ] is true. \\ \hline
+        -s file & Checks if the file has size greater than 0; if yes, then the condition becomes true. & [ -s \$file ] is true. \\ \hline
+        -e file & Checks if file exists; is true even if file is a directory but exists. & [ -e \$file ] is true. \\ 
+        \hline
+    \end{tabularx}
+\end{table}
+
+
+
+
+
+\section*{Week 4: Services and Databases}
+2 main databases + use cases:
+
+\begin{itemize}
+\item
+  Relational databases: data stored in multiple, related tables. Adhere
+  to ACID (Atomicity, Consistency, Isolation, and Durability). Usually
+  structure data with predefined, fixed relations EXAMPLE: Oracle,
+  MySQL, PostgreSQL\\
+\item
+  NoSQL (Non-Relational): data does not conform to predefined schema.
+  Store unstructured data, or semi-structured. EXAMPLE: MongoDB
+\end{itemize}
+
+4 types of NoSQL databases:
+
+\begin{itemize}
+\item
+  Doc-oriented: main unit is a document which is JSON containing
+  different fields. Good use case would be good for data analysis and
+  looking through records\\
+\item
+  Columnar: main unit is a column of a table, retrieved column wise.
+  Log-base files good use case.\\
+\item
+  Key-value: all data has a unique key identifier. Good for dealing with
+  cache\\
+\item
+  Graph: main unit contains nodes that represent entities and edges that
+  represent relationships. Good from graph like structures and social
+  networks.
+\end{itemize}
+
+Database management system (DBMS)\\
+SQL (Structured Query Language) used on Relational DBMS
+
+Cardinality - distinctiveness of info values contained in a column. High
+cardinality means column contains an outsized proportion of distinctive
+values. Low cardinality means more repeats.\\
+Mapping constraint is a data constraint that express the \# of entities
+to which another entity can be related via a relationship set. For
+binary relationship set R on an entity A and B, there are four possible
+mapping cardinalities:
+
+\begin{itemize}
+\item
+  One to one 1:1\\
+\item
+  One to many 1:M\\
+\item
+  Many to one M:1\\
+\item
+  Many to Many M:M
+\end{itemize}
+
+Service - group of processes (known as daemons) running continuously in
+background.Most Linux distros uses same process manager: systemd
+
+\texttt{Systemd} is a system + service manager for Linux, allows
+parallel startup of system services at boot time, on-demand activation
+of daemons, and dependency based on service control logic.
+\texttt{.service} -\textgreater{} system services, \texttt{.target}
+-\textgreater{} group of systemd units. Main features:
+
+\begin{itemize}
+\item
+  Socket-based activation allows parallel services to start without
+  losing messages when restarted.\\
+\item
+  Starts services in parallel as soon as all listening sockets are in
+  place. Significantly reduces time required to boot system\\
+\item
+  Only stops running services on shutdown
+\end{itemize}
+
+\texttt{systemctl} - command used to control and manage \texttt{systemd}
+services\\
+Activate - \texttt{systemctl\ start\ foo}, deactivate -
+\texttt{systemctl\ stop\ foo}, restart -
+\texttt{systemctl\ restart\ foo}, view status -
+\texttt{systemctl\ status\ foo}. More commands -\textgreater{}
+\texttt{systemctl\ status\ foo}
+
+HTTP (hypertext transfer protocol) - set of rules for sending and
+receiving web pages\\
+Web request - communicative message that goes between client/web browser
+to servers.\\
+HTTP Communication happens between client and server. Client makes HTTP
+request and gets back a HTTP response.
+
+HTTP request line consists of Method, URL and Version\\
+METHODS:
+
+\begin{itemize}
+\item
+  GET: used to seek info from specified source.\\
+\item
+  HEAD: only returns headers\\
+\item
+  POST: seeks to create and make a new object\\
+\item
+  PUT: replace fully with new section
+
+  URL: location that HTTP is referring to\\
+  VERSION: what version? HTTP/3? HTTP/2? HTTP/1.1?\\
+  HTTP request is followed by HTTP Header Structure:
+\item
+  General: applied on request and response w/o affecting database body\\
+\item
+  Request: contains info about fetched\\
+\item
+  Response: contains location of source requested\\
+\item
+  Entity: info about the body of resources
+\end{itemize}
+
+HTTP response has initial status line, some header lines and an entity
+body\\
+Status Codes:
+
+\begin{itemize}
+\item
+  1xx: informational\\
+\item
+  2xx: success (200 is request was successful)\\
+\item
+  3xx: redirection\\
+\item
+  4xx: client error (404 is file not found, 400 is bad request/not in
+  format system can read)\\
+\item
+  5xx: server error (500 is server error, 505 is requested HTTP version
+  not supported)
+\end{itemize}
+
+Command: \texttt{curl\ http://example.org\ –head\ -silent}: curl is name
+of command, --head or -I tells curl to send an HTTP request with head
+method. And -silent tells curl to not display progress.
+
+Caching - supplements primary database by removing unnecessary pressure
+on it. Different types of caching:
+
+\begin{itemize}
+\item
+  Database Integrated: managed within database engine and has built in
+  write through capabilities. The cons are size and capabilities.\\
+\item
+  Local: stored within application, removing network traffic. Con is
+  that each app has its own node, thus it cannot shared with other local
+  caches.\\
+\item
+  Remote: stored in dedicated servers by NoSQL.
+\end{itemize}
+
+\end{document}
