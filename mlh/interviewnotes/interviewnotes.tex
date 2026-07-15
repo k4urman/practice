@@ -601,7 +601,68 @@ class Solution(object):
 
 
 
+\subsection*{15. 3Sum}
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
 
+ 
+
+Example 1:
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+
+Example 2:
+Input: nums = [0,1,1]
+Output: []
+
+Example 3:
+Input: nums = [0,0,0]
+Output: [[0,0,0]]
+
+\begin{lstlisting}[language=python, mathescape=true]
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        nums.sort()
+        res = []
+        
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+                
+            l = i + 1
+            r = len(nums) - 1
+            
+            while l < r:
+                csum = nums[i] + nums[l] + nums[r]
+                
+                if csum > 0:
+                    r -= 1
+                elif csum < 0:
+                    l += 1
+                else:
+                    res.append([nums[i], nums[l], nums[r]])
+                    l += 1
+                    
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1
+                        
+        return res
+\end{lstlisting}
+
+\noindent \textbf{Notes:} We start by sorting the list so that it's easier for us to keep track of the pointers and instantiating a list to put our results in.
+
+\noindent Then, we start a loop that only goes up to the third to last number, since we'll have space for the two pointers to go to the last two. 
+
+\noindent We then start by seeing if there are duplicates, and if not, we make \texttt{l} equal to the value after \texttt{i} and \texttt{r} equal to the last value in the list. While \texttt{l < r}:
+
+\noindent We make \texttt{csum} the total sum of all the variables. If \texttt{csum > 0}, then we know that the \texttt{r} value is too big so we decrease. If \texttt{csum < 0}, then we know that the \texttt{l} value is too small so we increase it.
+
+\noindent Else, we append the list variables to \texttt{res} and increase \texttt{l} to start repeating the process until \texttt{i}'s round isn't over. 
 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.22)  11 JUL 2026 16:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.22)  15 JUL 2026 19:05
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -763,17 +763,17 @@ Overfull \hbox (29.5702pt too wide) in paragraph at lines 498--499
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[9] [10] [11] (interviewnotes.aux)
+[9] [10] [11] [12] (interviewnotes.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 17310 strings out of 474486
- 336754 string characters out of 5743755
+ 17313 strings out of 474486
+ 336782 string characters out of 5743755
  1962542 words of memory out of 5000000
- 39288 multiletter control sequences out of 15000+600000
+ 39291 multiletter control sequences out of 15000+600000
  567441 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,6n,93p,547b,1786s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -791,9 +791,9 @@ rs/manin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b><C:/Users/manin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmti10.pfb><C:/Users/manin/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmtt10.pfb>
-Output written on interviewnotes.pdf (11 pages, 169262 bytes).
+Output written on interviewnotes.pdf (12 pages, 172706 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
