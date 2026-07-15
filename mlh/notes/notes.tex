@@ -346,4 +346,119 @@ on it. Different types of caching:
   Remote: stored in dedicated servers by NoSQL.
 \end{itemize}
 
+
+\section*{Week 5: Testing}
+We need to make sure our code is always working as expected. Testing is conducted to ensure systems and applications are robust to prevent issues. We also text deployment so they must make sure CI/CD(Continuous integration/delivery/deployement) pipelines are ensured.
+
+\noindent \textbf{Types of Testing:}
+\begin{itemize}
+    \item White Box Testing: internal structure, design and coding of software are tested to verify flow of I/O and to improve design, usability, and security. Code is visible to testers.
+    \item Black Box Testing: functionalities of software applications are tested without having knowledge of internal code structure, implementation details, and internal paths. 
+    \item Gray Box Testing: tests software product or application with partial knowledge if the internal structure of application.
+\end{itemize}
+
+\noindent \textbf{Testing Levels:}
+\begin{itemize}
+    \item Unit Testing: tests individual components of the software. Makes sure all the individual parts work as intended. It is ideal to do this test prior to Integration Testing. Advantages include: quality of code improved, able to find bugs easier, changing code becomes easier, easier to understand project through documentation, debugging process simplified.
+        \begin{lstlisting}[language=python, mathescape=true]
+# if this is code to calculate valume of Cube:
+def cuboud_volume(l):
+    return (l*l*l)
+
+# then let's write a Unit Test!
+import unittest
+class TestCuboid(unittest.TestCase):
+    def test_volume(self):
+        self.assertAlmostEqual(cuboid_volume(2),8)
+        self.assertAlmostEqual(cuboid_volume(1),1)
+        self.assertAlmostEqual(cuboid_volume(0),0)
+        self.assertAlmostEqual(cuboid_volume(5.5),166.375)
+        \end{lstlisting}
+    \item Integration Testing: tests the combination of different units, their interactions, subsystem unity, and code compliance with the requirements. Ideal for after Unit Tests. Advantages include: simultaneous testing of different modules becomes convenient, lifesaver for a separated team, covers large amount of code. To implement it, use \texttt{pytest} library.
+    \item System Testing: tests the system as a whole. All the modules/components are integrated in order to verify the system works as expected or not. Ideal to do before giving it off as a final product or to go back to the drawing board. Advantages include: tests end-to-end scenarios to test the system. Tests the same environments as the production environment which understands perspective and prevents issues.
+\end{itemize}
+
+\noindent Always remember to start testing early! You should test a webpage like so:
+\begin{itemize}
+    \item Functionality: Test all links, test forms, and cookies are working as expected and not broken.
+    \item Usability: test the visability and accessibility of the webpage and make sure the user can see and interact with everything easily. Navigation, content, etc.
+    \item Interface: test to make sure the application is sending requests correctly to the database and outputting it right. Make sure the web server is handling the in between correctly and make sure all web queries appear in database.
+    \item Database: test the database. Any errors in executing the queries, data integrity for creating, updating and deleting data, check response time, and test retrieval. 
+    \item Compatibility: make sure the webpage displays correctly across all devices and browsers.
+    \item Performance: test response times and different connection speeds, load test the application and normal and peak loads, stress test to a breaking point and test a crash response. 
+    \item Security: test unauthorized access requests, accessing restricted files, check session that are killed for prolonged user activity, and use SSL certificates, websites should restrict to encrypted SSL pages.
+    \item Crowd: get a large number of people(crowd) to execute tests. 
+\end{itemize}
+
+\noindent There are also different types of tests to unsure all system, applications, environments and infrastructure are functioning as expected.
+
+\begin{itemize}
+    \item Canary Releases: reduces risk of introducing new software version by slowly rolling out the change to a small subset of users first. 
+    \item Load Testing: simulates high demand on a software by testing to see max operating capacity of the app, whether current infrastructure is sufficient, is it sustainable, how many users can it support.
+    \item Feature Flagging and Dark Launches: sees which features and functions can be revealed to the user or no. They leave the features disabled, and slowly enable them.
+    \item Application Monitoring: actively monitoring application. RRUM(Real User Monitoring) where we track real world interaction. We can also use Synthetic monitoring where it reacts from simulated users. 
+    \item Tracing: we see a single interaction go through multiple layers and see if it follows the correct path. 
+\end{itemize}
+
+\noindent Test Driven Development(TDD) focuses on creating unit test cases before developing the actual code. Once new code passes test, it is refactored to an acceptable standard. There are 3 phases in TDD:
+
+\begin{itemize}
+    \item Create precise tests that verify functionality
+    \item Correct the code once if fails
+    \item Refactor the code once it passes to reduce redundancies or to optimize the code.
+\end{itemize}
+
+\noindent There are many benefits of TDD including creates more optimized code, helps developer better analyze and understand client requirements and requests, makes testing new functionalities easier, test coverage is higher to reduce later failure, and enhances overall productivity.
+
+\noindent When we run the following script:
+\begin{lstlisting}[language=python, mathescape=true]
+$\$$ ls -l a\_file
+-rw-rw-r-- 1 coop a\_project 1601 Mar 9 15:04 a\_file
+\end{lstlisting}
+
+\noindent The part, \texttt{rw-rw-r-}, meaning owner permissions(read and write), group permissions (read and write), and other permissions (read only). The user is \texttt{coop} and the group is \texttt{a\_group}
+
+\noindent There are several types of permissions that can be given: \texttt{r} is read access, \texttt{w} is write access, and \texttt{x} is execute access. If not given, the placement is replaced by a dash. Other specialized permissions exist. \texttt{setuid} allows an executable to run with owner privileges, while \texttt{setgid} runs on group privileges.
+
+
+\noindent If we want to change file permissions, we use \texttt{chmod}. Here's an example where we allows owner and world to have execute privileges and remove the group write permissions:
+\begin{lstlisting}[language=python, mathescape=true]
+$\$$ ls -l a\_file
+-rw-rw-r-- 1 coop coop 1601 Mar 9 15:04 a\_file
+$\$$ chmod uo+x, g-w a\_file
+$\$$ ls -l a\_file
+-rwxr--r-x 1 coop coop 1601 Mar 9 15:04 a\_file
+\end{lstlisting}
+
+\noindent The \texttt{u} stands for user(owner), \texttt{o} stands for other(world), \texttt{g} stands for group. You can also use octal digits for shorthand chmodding, using 3 digits for each person to give permission (user, group, world).
+\begin{itemize}
+    \item 1 - if the execute permission is desired
+    \item 2 - if the write permission is desired
+    \item 4 - if the read permission is desired
+    \item 5 - means read/execute
+    \item 6 - means read/write
+    \item 7 - means read/write/execute
+\end{itemize}
+
+\noindent Whenever we need to change file ownership, we use \texttt{sudo chown [new user] [file]} and to change group ownership we use \texttt{sudo chgrp [new group] [file]}. Only superuser can do this.
+
+\noindent POSIX ACLs(Access Control Lists) extend the simple user, group, and world system. 
+
+\noindent Groups are defined in \texttt{/etc/group} where every line looks like this: \texttt{groupname:password:GID:user1,user2...}
+
+\begin{itemize}
+    \item Groupname is the name of the group
+    \item password is the password placeholder, only may be set if \texttt{/etc/gshadow} exists
+    \item GID is the group identifier. Values 0-99 are for system groups. Values between 100-GID\_MIN are considered special. Values above GID\_MIN are for UPG(User Private Groups).
+    \item Then finally a list of all the members of the group.
+\end{itemize}
+
+\noindent The following may allow you to modify group settings:
+\begin{itemize}
+    \item groupadd - add a new group
+    \item groupmod - modify a group and add new users
+    \item groupdel - remove a group
+    \item usermod - manage a user's group memberships
+\end{itemize}
+
 \end{document}
