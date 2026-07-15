@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Sync Submissions to Subfolder
+      - name: LeetCode Sync
         uses: joshcai/leetcode-sync@v1.7
 
         with:
@@ -25,3 +25,4 @@ jobs:
           destination-folder: 'practice/leetcode'
           verbose: true
           commit-header: 'Sync LeetCode submission'
+
