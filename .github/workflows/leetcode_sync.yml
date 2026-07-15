@@ -25,6 +25,6 @@ jobs:
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           
           # Customization options:
-          destination-folder: 'practice/leetcode'
+          destination-folder: 'leetcode'
           verbose: true
           commit-header: 'Sync LeetCode submission'
