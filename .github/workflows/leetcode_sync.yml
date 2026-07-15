@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # GRANT WRITE PERMISSIONS HERE
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -15,7 +19,6 @@ jobs:
 
       - name: LeetCode Sync
         uses: joshcai/leetcode-sync@v1.7
-
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
@@ -25,4 +28,3 @@ jobs:
           destination-folder: 'practice/leetcode'
           verbose: true
           commit-header: 'Sync LeetCode submission'
-
