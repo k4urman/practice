@@ -461,4 +461,89 @@ $\$$ ls -l a\_file
     \item usermod - manage a user's group memberships
 \end{itemize}
 
+\subsection*{HackerRank Questions}
+
+\noindent \textbf{Reverse a Linked List:} 
+\begin{lstlisting}[language=python, mathescape=true]
+"""
+Complete the 'reverse' function below.
+The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+
+
+For your reference:
+
+SinglyLinkedListNode:
+     int data
+     SinglyLinkedListNode next
+"""
+
+
+def reverse(llist):
+    # Write your code here
+    prev = None
+    current = llist
+    
+    while current is not None:
+        next_node = current.next
+        current.next = prev
+        prev = current
+        current = next_node
+    
+    return prev
+    
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    tests = int(input())
+
+    for tests_itr in range(tests):
+        llist_count = int(input())
+
+        llist = SinglyLinkedList()
+
+        for _ in range(llist_count):
+            llist_item = int(input())
+            llist.insert_node(llist_item)
+
+        llist1 = reverse(llist.head)
+
+        print_singly_linked_list(llist1, ' ', fptr)
+        fptr.write('\n')
+
+    fptr.close()
+    
+\end{lstlisting}
+
+\noindent \textbf{Cycle Detection:}
+\begin{lstlisting}[language=python, mathescape=true]
+"""
+Complete the has_cycle function below.
+For your reference:
+
+SinglyLinkedListNode:
+    int data
+    SinglyLinkedListNode next
+"""
+
+def has_cycle(head):
+    if head is None:
+        return False
+    
+    slow = head
+    fast = head
+    
+    while fast is not None and fast.next is not None:
+        slow = slow.next
+        fast = fast.next.next
+        
+        if slow == fast:
+            return True
+    
+    return False
+
+if __name__ == '__main__'
+\end{lstlisting}
+
 \end{document}
