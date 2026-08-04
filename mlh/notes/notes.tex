@@ -546,4 +546,175 @@ def has_cycle(head):
 if __name__ == '__main__'
 \end{lstlisting}
 
+
+\section*{Week 6: Containers}
+Containers are a form of system visualization, that can be used to run anything small to large. The container has all the necessary executables, binary code, libraries and config files with dependencies required to run as expected. 
+
+\noindent Containers are useful since they are a lightweight way to build, test, and deploy applications across environment. They are scalable and efficient since they use fewer resources that traditional VMs, allowing multiple containers to run on the same host without interfering with one another, allowing streamlining.
+
+\noindent How do containers work, however? Let's first discuss a VM (Virtual Machine), uses a hypervisor to create independent VMs that allow you to have a separate operating system. This is called virtualization, where you create a new process. Containerization encapsulates the code within its own operating system. 
+
+\noindent There is no one definition for microservice, but are mainly independently deployable modules. This speeds up deployment and reduces number of necessary tests since only a single module needs to be deployed. In our case, a deployment will replace the Docker container of an individual microservice with a new Docker container, and other microservices will not be effected. 
+
+\section*{Week 8: Continuous Integration}
+Github Actions allows us to create custom software dev. workflows in the repo. This enables you to include Continuous Integration(CI) and Continuous Deployment (CD). 
+
+\noindent Github Actions is good since it is built into Github, meaning we can manage everything in the same place. It also allows you to test multi-container setups by adding Docker and docker-compose files. There are also multiple CI templates. Also, free!
+
+\noindent The main concepts of Github Actions comes down to the following:
+
+\begin{itemize}
+    \item[] Actions: small portable building block of workflow that combined, can create a job.
+    \item[] Workflow: automated process that is made up of one or more jobs triggered by an event. These workflows are defined as a YAML file in the repo. 
+    \item[] Runner: a machine with the Github Actions runner application installer. It waits for a job, runs the job's actions, and the reports the results back to Github. Can be hosted on Github to self hosted.
+    \item[] Job: made up of multiple steps and runs in an instance of a VM. Can be run independently or sequentially.
+    \item[] Step: set of tasks that can be executed by a job.
+\end{itemize}
+
+\noindent Github Actions allows you to customize your workflows to meet the needs of your app. 
+
+\noindent Github Actions includes default environment variables for each workflow run. If you need custom ones, you set these in the YAML. In this example, we create variables \texttt{MYSQL_HOST} and \texttt{MYSQL_USER} which is connected to \texttt{app.py}
+
+\begin{lstlisting}[language=python]
+jobs:
+    example_job:
+        steps:
+            - name: Connect to MySQL
+              run: python app.py
+              env:
+                POSTGRES_HOST: 127.0.0.1
+                POSTGRES_PORT: admin
+              ports:
+                - 3306
+\end{lstlisting}
+
+\noident You can also run scripts and shell commands, which are then executed by assigned runner. This next example has the command \texttt{npm install -g bats} run on a runner(1) and then how to run a script as an action you can store the script in your repo and supply the path and shell type(2):
+
+\begin{lstlisting}[language=python]
+# First Example
+jobs:
+    example_job:
+        steps:
+            - run: npm install -g bats
+
+# Second Example
+jobs:
+    example-job:
+        steps:
+            - name: Run build script
+              run: ./.github/scripts/build.sh
+              shell:bash
+\end{lstlisting}
+
+\noindent Let's say you want to save files for later. We can save these into Github as artifacts. Artifacts are the files created when you build and test your code. This is an example of creating a file and uploading as artifact:
+
+\begin{lstlisting}[language=python]
+jobs:
+    example-job:
+        name: Save output
+        steps:
+            - shell: bash
+              run: |
+                expr 1 + 1 > output.log
+            - name: Upload output file
+              uses: actions/upload-artifact@v2
+              with:
+                name: output-log-file
+                path: output.log
+\end{lstlisting}
+
+\noindent If we want to download the artifact from a separate workflow run, you can use the following action:
+
+\begin{lstlisting}[language=python]
+jobs:
+    example-job:
+        steps:
+            - name: Download a single artifact
+              uses: actions/download-artifact@v2
+              with:
+                name: output-log-file
+\end{lstlisting}
+
+\noindent There are many ways to start workflows, mostly there are many templates on Github templates. If you are not sure which actions are useful you can always search them up from suggested from Github which is unique to every repo. We start with a YAML file:
+
+\begin{lstlisting}[language=python]
+name: CI for Node.js Project
+
+on: 
+    push: 
+        branches: [ main ]
+    pull request:
+        branches: [ main ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        name: Build and Test
+        steps:
+        - uses: actions/checkout@v2
+          name: Check out repository
+        - uses: actions/setup-node@v1
+          name: Set up Node.js
+          with:
+            node-version: 12
+        - run: |
+            npm c
+            npm run build
+            npm test
+          name: Build and Test
+\end{lstlisting}
+
+\noindent As you can see, there are several parts to the file:
+\begin{itemize}
+    \item[] name: The name of the workflow will be displayed on the repo's actions page
+    \item[] on: the events that occur on Github and will cause the workflow to be executed. For example, you can run your workflow on push and pull request triggers, which will let you to build your code and run your tests in the CI workflow. 
+    \item[] jobs: a list of jobs that run as part of the workflow Each job will run independently from the others and will run in different virtual environments. Jobs have names that make them easier to be identified. 
+\end{itemize}
+
+\noindent Github Actions has different triggers. You can run an action when pushing code to a repo, or when creating a new tag. When building open source packages, you may receive pull requests from users. Typically, you want to run your test suite against the changed code in PR.
+
+\noindent When we create new workflow, the default trigger is the push event. You can extend to push and PRs:
+
+\begin{lstlisting}[language=python]
+name: Run Tests
+
+on: [ push, pull_request ]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: ...
+\end{lstlisting}
+
+\noindent There is a job called the Cron Job used to schedule tasks to be executed in future. Often, periodically. For most cron jobs, there are 3 events present: script is to be called or executed, command executes script on a recurring basis, the actions or output of the script depends on what the script being called does. Here's an example:
+
+\begin{lstlisting}[language=python]
+name: Testing Cron
+
+on:
+    push:
+        branches: [ main ]
+    schedule:
+        - cron: "0 8 1 * *" # executes first of the month at 8AM
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - name: Running
+          run: |
+            echo "Running!"
+\end{lstlisting}
+
+\noindent Now what exactly is CI and CD? Continuous Integration (CI) allows us to automate the commands and tools we need to develop. For example, we often use a linter (a software that analyzes your code and informs you of any issues). Sometimes we forget to run the linter! CI is used to avoid anything getting missed and making it into the default branch and therefore into production.
+
+\noindent The pros of CI or CD is that there are faster feedback loops that lets you know if tests are passed, increases visibility and transparency that lets other contributors know if they should merge or pull your code since they can see the status, and it shows consistency and improved quality over time.
+
+\noindent There are several helpful tasks CI can do: linter, building the project, automating tests (unit, integration, end-to-end), performance testing, accessibility testing, stale issues, notifications, and more. 
+
+\noindent The difference between Continuous Deployment (CD) and Continuous Integration (CI) lies in what happens to code after it gets pushed. CI is used to enforce a standard to each single change that a dev brings, while CD is focused on getting that change out in production without any human work. If CI fails for the project, CD must not release it to the public. 
+
 \end{document}
