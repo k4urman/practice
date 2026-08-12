@@ -573,7 +573,7 @@ Github Actions allows us to create custom software dev. workflows in the repo. T
 
 \noindent Github Actions allows you to customize your workflows to meet the needs of your app. 
 
-\noindent Github Actions includes default environment variables for each workflow run. If you need custom ones, you set these in the YAML. In this example, we create variables \texttt{MYSQL_HOST} and \texttt{MYSQL_USER} which is connected to \texttt{app.py}
+\noindent Github Actions includes default environment variables for each workflow run. If you need custom ones, you set these in the YAML. In this example, we create variables \texttt{MYSQL\_HOST} and \texttt{MYSQL\_USER} which is connected to \texttt{app.py}
 
 \begin{lstlisting}[language=python]
 jobs:
@@ -588,7 +588,7 @@ jobs:
                 - 3306
 \end{lstlisting}
 
-\noident You can also run scripts and shell commands, which are then executed by assigned runner. This next example has the command \texttt{npm install -g bats} run on a runner(1) and then how to run a script as an action you can store the script in your repo and supply the path and shell type(2):
+\noindent You can also run scripts and shell commands, which are then executed by assigned runner. This next example has the command \texttt{npm install -g bats} run on a runner(1) and then how to run a script as an action you can store the script in your repo and supply the path and shell type(2):
 
 \begin{lstlisting}[language=python]
 # First Example
@@ -716,5 +716,279 @@ jobs:
 \noindent There are several helpful tasks CI can do: linter, building the project, automating tests (unit, integration, end-to-end), performance testing, accessibility testing, stale issues, notifications, and more. 
 
 \noindent The difference between Continuous Deployment (CD) and Continuous Integration (CI) lies in what happens to code after it gets pushed. CI is used to enforce a standard to each single change that a dev brings, while CD is focused on getting that change out in production without any human work. If CI fails for the project, CD must not release it to the public. 
+
+
+\section*{Week 9 - Monitoring and Networking}
+Monitoring refers to overseeing the entire dev lifecycle, from complete and real-time view of the status of services, applications, and infrastructure across environments.
+
+\noindent In P.E., we are expected to develop faster and test regularly. Monitoring tools are essential to expand visability throughout this process. It allows teams to identify and respond to any degregation in expected states of the system during each phase of the pipeline, quickly and in an automated manner.
+
+\noindent the Systems Activity Reporter command, or \texttt{sar}, is an all-purpose tool for gathering system activity and performance data and creating reports that are readable by humans. 
+
+On Linux systems, the backend to \texttt{sar} is \texttt{sadc} (system activity data collector), which accumulates the statistics. It stores information in the \texttt{/var/log/sa} directory, with a daily frequency by default, but that can be adjusted. Data collection can be started from the command line, and regular periodic collection is usually started as a cron job stored in \texttt{/etc/cron.d/sysstat}.
+
+\noindent \texttt{sar} will then read the data and produce a report. Here's an example of how you would use it:
+
+\begin{lstlisting}[language=python]
+$ sar [ options ] [ interval ] [ count ]
+\end{lstlisting}
+
+\noindent System log files are essential for monitoring and troubleshooting. These files appear under \texttt{/var/log/}. The control of how messages are dealt with is controlled by \texttt{syslogd}, but newer systemd based systems may just use \texttt{journalctl}, but may use the previous command to cooperate with it.
+
+\noindent Important messages are sent to both the log file and the system console window. These messages are copied to \texttt{/var/log/messages}. You can view the messages in the following manners:
+
+\begin{lstlisting}[language=python]
+# both commands give the same response.
+
+$ sudo tail -f /var/log/messages
+$ dmesg -w
+\end{lstlisting}
+
+\begin{table}[htbp]
+\centering
+\caption*{Main Tool Commands for Process Monitoring}
+\begin{tabular}{ll}
+\textbf{TOOL} & \textbf{PURPOSE} \\
+top & Process activity, dynamically updated \\
+uptime & How long the system is running and the average load \\
+ps & Detailed information about processes \\
+pstree & A tree of processes and their connections \\
+mpstat & Multiple processor usage \\
+iostat & CPU utilization and I/O statistics \\
+sar & Display and collect information about system activity \\
+numastat & Information about NUMA (Non-Uniform Memory Architecture) \\
+strace & Information about all system calls a process makes \\
+\end{tabular}
+\end{table}
+
+There are also many tools for monitoring, debugging and tuning a system's behavior with regard to its memory. This can be complex. Memory usage and I/O throughput are related, and most memory is being used to cache the contents of a files on disk. Changing memory parameters can have a large effect on I/O performance, and changing I/O parameters can have an equally large converse effect on the virtual memory sub-system.
+
+\begin{table}[htbp]
+\centering
+\caption*{Memory Monitoring Utilities}
+\begin{tabular}{lll}
+\textbf{UTILITY} & \textbf{PURPOSE} &  \textbf{PACKAGE}\\
+free & brief summary of memory usage & procps\\
+vmstat & detailed virtual memory statistics and block I/O, dynamically updated & procps \\
+pmap & process memory map & procps
+\\
+strace & Information about all system calls a process makes \\
+\end{tabular}
+\end{table}
+
+\noindent \texttt{/proc/meminfo} is an important file and contains wealth of information about how memory is used. 
+
+\noindent \texttt{vmstat} is a multipurpose tool that displays information about the memory, paging, I/O, processor activity and processes. This is how the command usually goes:
+
+\begin{lstlisting}[language=python]
+    $ vmstat [ options ] [ delay ] [ count ]
+\end{lstlisting}
+
+\noindent Prometheus is an open-source monitoring and alerting toolkit normally used to monitor Kubernetes environments. Prometheus replies on scraping information from your server, through pre-defined endpoints. Prometheus collects and stores its metrics as time-series data, i.e., metrics information is stored with the timestamp at which it was record alongside optional key-value pairs called labels.
+
+\noindent You can monitor plenty of metrics and it comes down to you. The common metrics are counter and gauge:
+\begin{itemize}
+    \item[] Counter: a cumulative number that increases over time or sets to zero but never decreases. For example, a counter can represent the number of requests your website serves.
+    \item[] Gauge: a single numerical number that either goes up or down. Compared to counter, it can decrease. For example, you can monitor CPU or memory usage.
+\end{itemize}
+
+\noindent Usually, running Prometheus involves configuring it to work with specific application you are developing. But right now, let's try running a simple Prometheus app with this single command:
+
+\begin{lstlisting}[language=python]
+$ docker run -p 9090:9090 prom/prometheus
+\end{lstlisting}
+
+\noindent Running Prometheus on itself is certainly fun, but does Prometheus record metrics of its host machine? In other words, how do you gather the data that your VPS produces for Prometheus to analyze and record. This is where we need an exporter integration, or commonly referred to as collectors. The official Prometheus collector is the node exporter. 
+
+\noindent Alertmanager is a companion service to Prometheus, which handles sending alerts based on conditions, which will be pre-defined by the engineer using alerting rules. Here's common terms:
+\begin{itemize}
+    \item[] Grouping: categorizing alerts based on their nature and putting them into a single notification. For example, there was a large outage and instead of a lot of notifications, one gets sent.
+    \item[] Inhibition: preventing alerts from going off if certain other alerts are already sent. For example, of something that lies at the based of the application is misbehaving, the alert for it gets sent, but no other alerts are sent.
+    \item[] Silences: muting particular alerts for a certain time. For example, if you know that something will not work while you are reorganizing your project, it is a good idea to silence the alert.
+\end{itemize}
+
+\noindent Another resource is Grafana, which is an open-source software to visualize and explore metrics. It is often used with Prometheus to serve as an extensive data visualization tool, but is not limited to work with just one potential source. 
+
+\noindent Grafana specifically works with time series, a continuous recording of metrics. Time series are represented by graphs, which places each metric based on what time it was recorded. Other examples include CPU and memory usage, sensor data, stock market index, and more. One can run it on the VPS like so:
+
+\begin{lstlisting}[language=python]
+$ docker run -d --name=grafana -p 3000:3000 grafana/grafana
+\end{lstlisting}
+
+\noindent Container advisor (cAdvisor) is a tool that lets you view resource usage and performance characteristics of your running Docker containers. It collects, aggregates, processes, and exports information about your active containers.  But it also remembers container-specific parameters, historical usage, as well as some useful visualization of its history.
+
+
+
+
+
+\noindent Disk performance problems can be strongly coupled to other factors, such as insufficient memory or inadequate network hardware and tuning. As a rule, a system can be considered I/O-bound when the CPU is found sitting idle waiting for I/O to complete, or the network is waiting to clear buffers.
+
+\noindent However, one can be misled. What appears to be insufficient memory can result from too slow I/O: if memory buffers that are being used for reading and writing fill up, it may appear that memory is the problem, when the real problem is that buffers are not filling up or emptying out fast enough. Similarly, network transfers may be waiting for I/O to complete and cause network throughput to suffer.
+
+\noindent I/O statistics are given: tps (I/O transactions per second; logical requests can be merged into one actual request), block read and written per unit of time, where the blocks are generally sectors of 512 bytes; and the total blocks read and written.
+
+\begin{lstlisting}[language=python]
+# -k option shows results in KB instead of blocks
+$ iostat -k
+
+# -m shows results in MB
+$ iostat -m
+
+# -N shows by device number
+$ iostat -N
+
+# -x shows more detailed report, including utilization percentage
+$ iostat -x
+\end{lstlisting}
+
+\noindent Another useful function is \texttt{iotop} which must be run at root. It displays a table of current I/O usage and updates periodically, like \texttt{top}. 
+
+\noindent Network Traffic is the amount of data moving across a computer network at any given time. The more the number of active users, the higher is the data that is transferred across the network which inturn implies higher network traffic.
+
+\noindent IP addresses are used to uniquely identify nodes across the internet. They are registered through ISPs (Internet Service Providers). The IP address is the number that identifies your system on the network. It comes in 2 variables:
+\begin{itemize}
+    \item[] IPv4: 32-bit address, composed of 4 octets (an octet is just 8bits, or a byte). Example: 148.114.252.10
+    \item[] IPv6: is a 128-bit address, composed of 8 16-bit octet pairs. Example: 2003:0db5:6123:0000:1f4f:0000:5529:fe23
+\end{itemize}
+
+\noindent Different IPv4 address types:
+\begin{itemize}
+    \item[] Unicast: an address associated with a specific host. Example: something like 140.211.169.4 or 64.254.248.193. 
+    \item[] Network: an address whose host portion is set to all binary zeros. Example: Example: 192.168.1.0
+    \item[] Broadcast: an address to which each member of a particular network will listen. It will have the host portion set to all 1 bits, such as in 172.16.255.255 or 148.114.255.255 or 192.168.1.255.
+    \item[] Multicast: an address to which appropriately configured nodes will listen. The address 224.0.0.2 is an example of a multicast address. 
+\end{itemize}
+
+\noindent Certain addresses and address ranges are reserved for special purposes.
+\begin{itemize}
+    \item[] 127.x.x.x: reserved for the loopback (local system) interface, where $0 \leq x \leq 254$. Generally, 127.0.0.1
+    \item[] 0.0.0.0: Used by systems that do not yet know their own address. Protocols like DHCP and BOOTP use this address when attempting to communicate with a server.
+    \item[] 255.255.255.255: Generic broadcast private address, reserved for internal use. These addresses are never assigned or registered to anyone. They are generally not routable.
+\end{itemize}
+
+\noindent Different IPv6 address types:
+\begin{itemize}
+    \item[] Unicast: a packet is delivered to one interface
+    \item[] Multicast: a packet is delivered to multiple interfaces.
+    \item[] Anycast: a packet is delivered to the nearest of multiple interfaces (in terms of routing distance)
+    \item[] IPv4-mapped: An IPv4 address mapped to IPv6.
+\end{itemize}
+
+\noindent Historically, IP addresses are based on defined classes. Classes A, B, and C are used to distinguish a network portion of the address from a host portion of the address.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+
+\textbf{\begin{tabular}[c]{@{}l@{}}NETWORK\\ CLASS\end{tabular}} & 
+\textbf{\begin{tabular}[c]{@{}l@{}}HIGHEST ORDER OCTET\\ RANGE\end{tabular}} & 
+\textbf{NOTES} \\ 
+A & 1-127 & \begin{tabular}[c]{@{}l@{}}128 networks, 16,772,214 hosts per network,\\ 127.x.x.x reserved for loopback\end{tabular} \\ 
+B & 128-191 & 16,384 networks, 65,534 hosts per network \\ 
+C & 192-223 & 2,097,152 networks, 254 hosts per network \\ 
+D & 224-239 & Multicast addresses \\ 
+E & 240-254 & Reserved address range \\ 
+\end{tabular}
+\end{table}
+
+\noindent \texttt{netmask} is used to determine how much of the address is used for the network portion and how much for the host portion as we have seen. It is also used to determine network and broadcast addresses.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+
+\textbf{NETWORK CLASS} & \textbf{DECIMAL} & \textbf{HEX} & \textbf{BINARY} \\ 
+A & 255.0.0.0 & ff:00:00:00 & \begin{tabular}[c]{@{}l@{}}11111111 00000000 00000000\\ 00000000\end{tabular} \\ 
+B & 255.255.0.0 & ff:ff:00:00 & \begin{tabular}[c]{@{}l@{}}11111111 11111111 00000000\\ 00000000\end{tabular} \\ 
+C & 255.255.255.0 & ff:ff:ff:00 & \begin{tabular}[c]{@{}l@{}}11111111 11111111 11111111\\ 00000000\end{tabular} \\ 
+\end{tabular}
+\end{table}
+
+\noindent The hostname is simply a label to distinguish a networked device from other nodes. Historically, this has also been called a nodename. For DNS purposes, hostnames are appended with a period (dot) and a domain name. 
+
+\begin{lstlisting}[language=python]
+# shows the hostname
+$ hostname 
+wally
+
+# changing hostname using root privilege
+$ sudo hostname lumpy
+lumpy
+
+$ sudo hostnamectl set-hostname lumpy
+\end{lstlisting}
+
+\noindent The \texttt{ip} command line utility used to configure, control and query interface parameters and control devices, routing, etc. It is preferred to the vulnerable \texttt{ipconfig} we discuss next. \texttt{ip} can be used for a wide variety of tasks. It can be used to display and control devices, routing, policy-based routing, and tunneling
+
+\begin{lstlisting}[language=python]
+# basic functionality
+$ ip [ OPTIONS } OBJECT { COMMAND | help }
+$ ip [ -force ] -batch filename
+
+# shows information for all network interfaces
+$ ip link show
+
+# shows information for the eth0 network interface, including statistics:
+$ ip -s link show eth0
+
+# set the IP address for eth0
+$ sudo ip addr add 192.168.1.7 dev eth0
+
+# bring interface eth0 down
+$ sudo ip link set eth0 down
+
+# set MTU to 1480 bytes for interface eth0
+$ sudo ip link set eth0 mty 1480
+
+# set route to network
+$ sudo ip route add 172.16.1.0/24 via 192.168.1.5
+\end{lstlisting}
+
+\noindent \texttt{ipconfig} is a system administration utility long found in UNIX-like operating systems used to configure, control, and query network interface parameters from either the command line or from system configuration scripts. It has been superseded by \texttt{ip} and some Linux distributions no longer install it by default. 
+
+
+
+\noindent The Predictable Network Interface Device Names (PNIDN) is strongly correlated with the use of udev and integration with \texttt{systemd}. There are 5 stypes of names that devices can be given:
+
+\begin{enumerate}
+    \item Incorporating Firmware of BIOS provided index numbers for on-board devices. Example: eno1
+    \item Incorporating Firmware or BIOS provided PCI Express hotplug slot index numbers. Example: ens1
+    \item Incorporating physical and/or geographical location of the hardware connection. Example: enp2s0
+    \item Incorporating the MAC address. Example: enx7837d1ea46da
+    \item Using the old classic method. Example: etho0
+\end{enumerate}
+
+\noindent Network Managers can manage different types of network inputs. 
+
+\noindent One such manager is \texttt{nmtui} where you can navigate with either the arrow keys or tab key. You can navigate and edit connections and also set the system hostname. However, some operations, such as this, cannot be done by normal users and you will be prompted for the root password to go forward.
+
+\noindent The other one we will learn is \texttt{nmcli} which is the command line interface to Network Manager. You can issue direct commands, but it also has an interactive mode. 
+
+\noindent Routing is the process of selecting paths in a network along which to send network traffic. The routing table is a list of routes to other networks managed by the system. If defines to all networks and hosts, sending remote traffic to routers.To see the routing table you can use these two commands:
+
+\begin{lstlisting}[language=python]
+$ route -n
+$ ip route
+\end{lstlisting}
+
+\noindent The default route is the way packets are sent when there is no other match in the routing table for reaching the specified network. It can be obtained dynamically using DHCP. However, it can also be manually configured(static). With \texttt{nmcli} it can be done via the following or you can modify configuration files directly:
+
+\begin{lstlisting}[language=python]
+$ sudo nmcli con mod virbr0 ipv4.routes 192.168.10.0/24 +ipv4.gateway 192.168.122.0
+$ sudo nmcli con up virbr0
+\end{lstlisting}
+
+\noindent Static routes are used to control packet flow when there is more than one router or route. They are defined for each interface and can be either persistent or non-persistent. When the system can access more than on router, or perhaps there are multiple interfaces, it is useful to selectively control which packets go to which router. Either the \texttt{route} or \texttt{ip} command can be used to set a non-persistent route as in:
+
+\begin{lstlisting}[language=python]
+$ sudo ip route add 10.5.0.0/16 via 192.168.1.100
+\end{lstlisting}
+
+
+\noindent Computers are inherently insecure and need protection from the people who would intrude in on or attack them. This can be done to simply harm the system, deny services, or steal information. Security can be defined in terms of the system's ability to regularly do what it is supposed to do, integrity and correctness of the system, and ensuring that the system is only available to those authorized to use it.
+
+
+
+
 
 \end{document}
