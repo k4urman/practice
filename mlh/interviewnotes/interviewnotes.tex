@@ -667,6 +667,55 @@ class Solution(object):
 
 
 
+\subsection*{3. Longest Substring Without Repeating Characters}
+Given a string s, find the length of the longest without duplicate characters.
+
+ 
+
+Example 1:
+Input: s = "abcabcbb"
+Output: 3
+
+Example 2:
+Input: s = "bbbbb"
+Output: 1
+
+Example 3:
+Input: s = "pwwkew"
+Output: 3
+
+\begin{lstlisting}[language=python, mathescape=true]
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+
+        hashm = {}
+        count = 0
+        left = 0
+
+        for i, n in enumerate(s):
+            if n in hashm and hashm[n] >= left: 
+                left = hashm[n] + 1
+            
+            hashm[n] = i
+
+            curr = i - left + 1
+            count = max(count, curr)
+
+        return count
+        
+\end{lstlisting}
+
+\noindent \textbf{Notes:} You could make a hash map that remembers each index and value and compares segment by segment. You first create a hashmap called \texttt{hashm} and two variables. \texttt{count} which keeps track of our final return value without repetition, and \texttt{left} which is a left boundary that keeps track from what starting point we are comparing the segment.
+
+\noindent We traverse, keeping track of the index and value of the string given. If the value is in our hashmap and also in the segment boundary, we make the value afterwards the new left boundary.
+
+\noindent Regardless of if inside the hashmap or not, we do make the value's index in the hashmap the index in the string. 
+
+\noindent Lastly, we see if the current value index minus the left boundary + 1 (since indexes start at 0) is bigger or not than the old counter we made in the beginning. 
 
 
 
