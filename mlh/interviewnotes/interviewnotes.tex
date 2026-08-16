@@ -720,9 +720,9 @@ class Solution(object):
 
 \subsection*{845. Longest Mountain in Array}
 You may recall that an array arr is a mountain array if and only if: arr.length >= 3
-There exists some index i (0-indexed) with 0 < i < arr.length - 1 such that:
-        arr[0] < arr[1] < ... < arr[i - 1] < arr[i]
-        arr[i] > arr[i + 1] > ... > arr[arr.length - 1]
+There exists some index i (0-indexed) with 0 $<$ i $<$ arr.length - 1 such that:
+        arr[0] $<$ arr[1] $<$ ... $<$ arr[i - 1] $<$ arr[i]
+        arr[i] $>$ arr[i + 1] $>$ ... $>$ arr[arr.length - 1]
 
 Given an integer array arr, return the length of the longest subarray, which is a mountain. Return 0 if there is no mountain subarray.
 
@@ -768,6 +768,68 @@ class Solution(object):
 
 \noindent We will then traverse down from \texttt{i} using \texttt{l} and count how many values are smaller. Then we do the same with \texttt{r}. We take not of the index of the smallest value and the largest small value. We return the max: is it \texttt{ret} that we already have or the next boundary difference plus 1?
 
+\section*{Arrays with Sliding Windows}
+\subsection*{219. Contains Duplicates II}
+Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] $==$ nums[j] and abs(i - j) $<=$ k.
 
+Example 1:
+Input: nums = [1,2,3,1], k = 3
+Output: true
+
+Example 2
+Input: nums = [1,0,1,1], k = 1
+Output: true
+
+Example 3:
+Input: nums = [1,2,3,1,2,3], k = 2
+Output: false
+
+
+
+\begin{lstlisting}[language=python, mathescape=true]
+# slow O(n^2) solution
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+
+        check = False
+        for i in range(0, len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] == nums[j] and abs(i-j) <= k:
+                        check = True
+
+        return check
+
+# second attempt - sliding window
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+
+        seen = set()
+
+        for i, n in enumerate(nums):
+            if n in seen:
+                return True
+            seen.add(n)
+            if len(seen) > k:
+                seen.remove(nums[i-k])
+        
+        return False
+
+\end{lstlisting}
+
+\noindent \textbf{Notes:} We start with a set called \texttt{seen} which can only hold up to \texttt{k} amount of values. If there is a match, it cannot be returned if it doesn't also satisfy the absolute value condition as well. 
+
+\noindent Then, it traverse through the value and indices in \texttt{nums}. If a duplicate exists within the span of \texttt{k} in \texttt{seen}, we return true!
+
+\noindent Otherwise, we add the latest value and if \texttt{seen} is more than \texttt{k}, which does not satisfy the requirement, we remove a value. If no duplicates are found, we just return false.
 
 \end{document}
