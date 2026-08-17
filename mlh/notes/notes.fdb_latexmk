@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1786578746.66574 "notes.tex" "notes.pdf" "notes" 1786578747.53562 0
+["pdflatex"] 1786985994.33879 "notes.tex" "notes.pdf" "notes" 1786985995.32841 0
   "C:/Users/manin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1783784950 84263 37748407d5370f73ac542d667e1fa0b3 ""
   "C:/Users/manin/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1095.pk" 1758585897 12668 fa2dc3f8be2e247219abee6c349c7dd6 ""
   "C:/Users/manin/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcti1095.pk" 1758585895 15464 05fa6cdad43c82eba27dce4bf50fd360 ""
@@ -156,8 +156,8 @@
   "C:/Users/manin/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1700599895 7147 d45559f8a31b8c53ada0640516660003 ""
   "C:/Users/manin/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/manin/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "notes.aux" 1786578747 33 a035df0073161ba654cb90f84378266a "pdflatex"
-  "notes.tex" 1786578746 53048 f6f18b0dd1974a8365158653e1ac6add ""
+  "notes.aux" 1786985995 33 0adf2b5024aa913a2319bb6c7b47be9c "pdflatex"
+  "notes.tex" 1786985993 57759 3ec4ee1129d07097ccb355382cdcd370 ""
   (generated)
   "notes.aux"
   "notes.log"

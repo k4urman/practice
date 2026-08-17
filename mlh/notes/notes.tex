@@ -988,7 +988,84 @@ $ sudo ip route add 10.5.0.0/16 via 192.168.1.100
 \noindent Computers are inherently insecure and need protection from the people who would intrude in on or attack them. This can be done to simply harm the system, deny services, or steal information. Security can be defined in terms of the system's ability to regularly do what it is supposed to do, integrity and correctness of the system, and ensuring that the system is only available to those authorized to use it.
 
 
+\section*{Week 10 - Troubleshooting}
+\subsection*{Troubleshooting}
+A monolithic application is a single-threaded software app in which
+UX, service, and data access code are combined in single program. It is self-contained and independent of other computing apps. This has major drawbacks such as lack of resusability, constraints on scalability, as size of the codebase makes it difficult to navigate.
 
+\noindent Most businesses are moving away from monolithic applications. Monolithic applications do not work well with a lot of deployments per day like bigger companies like Meta. To pinpoint a specific cause, you cannot deal with a monolithic application, where you cannot separate functions and parts.
+
+\noindent Troubleshooting is the systematic approach to problem solve that is used to find and specify issues with software applications that encounter a deviation from their expected outputs.
+
+\noindent The most common way to troubleshoot a technical issue is through "trial and error". However, there is a systematic approuch that can be followed in the form of a basic troubleshooting framwork. There includes following steps:
+\begin{enumerate}
+    \item Identify the symptoms: Identify and recognise anomalies  in the general and expected functioning of the application
+    \item Gathering and examining detailed info: Detailed logs, replication of the issue in a non-pod environment, and user reports are a good start into understanding details about the issue. 
+    \item Hypothesize potential cases: As someone who potentially has to experience with the way system behaved before the symptoms, and someone who might a recollection of the latest chanfes brought to the application, you should come up with theories that explain the issue.
+    \item Verify hypotheses: once you have multiple hypotheses on what causes the problem, most times it is a good idea to eliminate them one by one. 
+    \item Devise a plan to solve the problem: Having a list of ranging from the easiest hypotheses to debunk to the hardest ones, you should think of a plan to tackle the problem
+    \item Verify that the issue was resolved: Do not forget to verify if the issue is still there before moving on to the next item on your list. 
+    \item Repeat as needed: this will probably not be the first time you encounter an issue that needs troubleshooting. But remember that if you can put your efforts just right, each time you face an issue will start taking less and less time. 
+
+\subsection*{Problem Determination and Troubleshooting}
+\noindent Linux is a common tool, but might not be great for us when we are solving system problems by volunteers from the Linux community. The concepts of Problem Determination is a crucial one for any Linux user, especially when business success is at stake. We need to learn how to diagnoze problems in your Linux environment.
+
+\noindent Do not confuse Problem Determination with Debugging. Debugging is about detecting and removing existing error. There are several phases of investigation.
+\begin{enumerate}
+    \item Using your own skills:\\ Whenever you face an issue, you must note two things: remember the exact time the problem occurred and you should collect info about your system. First one is important because some problems may only arise because there were other simultaneous events occurring in the system. The second one would keep you wary of different things that can change while the system is running. Things like CPU workload, amount of free disk space, or free memory are dynamic variables that can change in an instant. Having collected information, consider the following:
+\begin{itemize}
+    \item What were you doing when the problem occurred. Were you trying to start a web server?
+    \item Describe the problem. How do you know there was a problem?
+    \item Anything that might have triggered the problem. While the problem is fresh in your mind, remember other things happening.
+    \item Any evidence related to the problem. Error logs from your application, system logs(/var/log/messages), the rorr message on your screen, etc.
+\end{itemize}
+    \item[] If you can reproduce the problem when you want, you can apply tools like \texttt{strace} (traces all of the system calls) or \texttt{lstrace} (traces functions that a program calls). 
+    \item[] Do not forget to ask yourself if anything changed recently. If everything worked as expected, and now it doesn't, you already know where you can find the problem. That's why you must keep your changes in the production environment to a minimum. You do not want to introduce problems with unnecessary changes.
+
+
+
+    \item Searching the internet: There are two reasons to proceed to this stage: your patience ran out or you realized knowing how to resolve the problem will not make you a better engineer. When you Google, do not forget to use the \texttt{kernal} for anything Linux-related. While Google will give you most answers, sometimes the answer is too rare, so Linux specific resources.
+
+
+
+    \item Deeper Investigation: Solving a hidden problem that has no previous solutions could be your time to shine. To do deeper investigation, you need to switch from short-term to long-term thinking. Here are some things to consider:
+        \begin{itemize}
+            \item Collect relevant information previously discussed: It is crucial to record system information for further analysis, and portential handoff to a senior engineer.
+            \item Keep note of what you've done and your thoughts: Keep an investigation log to avoid getting cluttered and revist the problem and potentially let you give that information to someone else, along with the information collected in the previous point. 
+            \item Be detailed and avoid qualitative information: Talk numbers when explaining the problem to yourself. Imagine reading someone else's explanation, and they say "CPU workload is too high". High can mean different things. Use numbers to show problem.
+            \item Challenge assumption until they are proven true: Don't assume that things are right. You might think the prerequisites to your problem are functioning correctly, only to realize the issue was in a completely abstract function being run by one of the dependencies. In other words, doubt. 
+            \item Narrow down your problem: Complex solutions usually consist of layers. Everyday, layers of abstraction are being added and systems + software are dependent on other apps that require a different skillset. The challenge is to follow the cookie trail of evidence and determine what dependency is causing the problem.
+            \item Work through theories to prove or disprove them: Think of theories that explain your issue. Make sure they are easy to prove or disprove and dramatically narrow down the scope of your problem.
+        \end{itemize}
+    \item Getting help: Everyone gets stuck. When you look at a problem for too long, it can be hard to see it from a different angle. This is why people go to experts, but not because they expect the answer to be handed to them. Experts appreciate someone who has down their homework prior to asking question. Here's some tips.
+        \begin{itemize}
+            \item Netiquette: follow etiquette rules on there internet. Be polite and show respect to others. 
+            \item Compose an effective message: Do not use CAPS, it looks like yelling. Do not overestimate the urgency of your problem, everyone else has deadlines too. Do not blame Linux, you might offend people. Explain the problem in detail. Have a concise subject line. Sound confident, but polite. Provide info on how to reproduce error.
+            \item Give back: Today you might have to ask a question in the forum, but tomorrow you can help others with their journeys. If you find a solution to your problem, post about it on the internet for others to find.
+        \end{itemize}
+\end{enumerate}
+
+\noindent That's all social, now let's get technical. When faced with an error, you can see an error message. Sometimes, the problem isn't even in the message, but a symptom that is caused by the real problem. 
+
+\noindent Error: Most frequent symptom. They come in many forms and occur for many reasons. Software produces error messages when it can't run as expected. Unfortunately, they are not always clear and useful. Use commands like \texttt{strace} and \texttt{lstrace} to look for system calls that have failed right before the error message is printed. If this doesn't work, look into the source code.
+
+\noindent Crash: They happen because of severe conditions, and there are 2 categories for them: traps and panics. A trap usually occurs when an application references memory incorrectly, or when there is a bad instruction executed. A panic is due to the app itself shutting down due to severe error condition. The difference is that a trap is a crash that the OS initiates, while panic is a crash that the application initiates.
+
+\noindent Traps: When the kernel experiences a major problem while running a process, it may send a signal (a Linux convention) to the process, such as \texttt{SIGSEGV, SIGBUS, SIGILL}. Some of these signals are due to a hardware condition such as an attemots to write to a write-protected region. The information you want to gather to fix a trap includes:
+\begin{itemize}
+    \item The instruction that trapped. If the instruction is invalid, it will generate a \texttt{SIGILL}. If the instruction references memory and the trap is \texttt{SIGSEGV}, the trip is likely due to referencing memory that is outside of a memory region.
+    \item The stack trace can help you understand why the trap occurred. The functions that are higher on the stack may have passed a bad pointer to the lower functions causing a trap.
+    \item The register dump can help you understand the "context" under which the trap occurred. The values of the registers may be required to understand what led up to the trap.
+\end{itemize}
+
+\noindent Some applications use a special function called "signal handler" to generate info about the trap that occured. Other apps simply trap and die immediately, in which case the best way to diagnose the problem is through a debugger such as GDB.
+
+\noindent A \texttt{SIGSEGV} is the most common problem out of the signals. A bad programming signal is sent by the kernal and is usually caused by memory corruption. You need to have access to source code and some knowledge of C/C++ to diagnose the problem.
+
+\noindent Panics: a panic is an app shutting itself down. Linux has a special function call made for this, called abort. A panic is similar symptom to a trap but is much more purposeful. Apps have the feature built-in to protect user systems and data. Panics are mostly product-specific and often require knowledge of the source code. The line number of the source code is sometimes displayed with a panic. The error message usually includes useful information and you should be able to find information online.
+
+
+\end{enumerate}
 
 
 \end{document}
