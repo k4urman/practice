@@ -831,5 +831,104 @@ class Solution(object):
 \noindent Then, it traverse through the value and indices in \texttt{nums}. If a duplicate exists within the span of \texttt{k} in \texttt{seen}, we return true!
 
 \noindent Otherwise, we add the latest value and if \texttt{seen} is more than \texttt{k}, which does not satisfy the requirement, we remove a value. If no duplicates are found, we just return false.
+\subsection*{1200. Minimum Absolute Difference}
+Given an array of distinct integers arr, find all pairs of elements with the minimum absolute difference of any two elements.
+
+Return a list of pairs in ascending order(with respect to pairs), each pair [a, b] follows
+
+    a, b are from arr
+    a < b
+    b - a equals to the minimum absolute difference of any two elements in arr
+ 
+
+Example 1:
+Input: arr = [4,2,1,3]
+Output: [[1,2],[2,3],[3,4]]
+
+Example 2:
+Input: arr = [1,3,6,10,15]
+Output: [[1,3]]
+
+Example 3:
+Input: arr = [3,8,-10,23,19,-4,-14,27]
+Output: [[-14,-10],[19,23],[23,27]]
+
+\begin{lstlisting}[language=python, mathescape=true]
+class Solution(object):
+    def minimumAbsDifference(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        arr.sort()
+        mindiff = float('inf')
+        for i in range(1,len(arr)):
+            mindiff = min(mindiff, arr[i] - arr[i-1])
+
+        res = []
+        for i in range(1, len(arr)):
+            if arr[i] - arr[i-1] == mindiff:
+                res.append([arr[i-1], arr[i]])
+        
+        return res
+\end{lstlisting}
+\noindent \textbf{Notes:} First, we sort every value in \texttt{arr} in ascending order. This means, we can find the closest pairs next to one another. The variable \texttt{mindiff} will as the name suggests, find the minimum difference across all pairs. We loop through array to find the minimum difference.
+
+\noindent We then make an array \texttt{res} to hold the later array pairs. We loop back through the array and see if a pair holds the same difference as \texttt{mindiff}. If so, we add it to \texttt{res} as an array pair. We return it.
+
+
+
+
+
+
+
+\subsection{209. Minimum Size Subarray Sum}
+Given an array of positive integers nums and a positive integer target, return the minimal length of a whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+
+Example 1:
+Input: target = 7, nums = [2,3,1,2,4,3]
+Output: 2
+
+Example 2:
+Input: target = 4, nums = [1,4,4]
+Output: 1
+
+Example 3:
+Input: target = 11, nums = [1,1,1,1,1,1,1,1]
+Output: 0
+
+\begin{lstlisting}[language=python, mathescape=true]
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        l = 0
+        total = 0
+        res = float('inf')
+
+        for r in range(len(nums)):
+            total += nums[r]
+
+            while total >= target:
+                res = min(res, r-l+1)
+
+                total -= nums[l]
+                l+= 1
+
+        if res == float('inf'):
+            return 0
+        else:
+            return res
+\end{lstlisting}
+
+\noindent \textbf{Notes:} We make a left boundary \texttt{l}, a \texttt{total} that adds all the values together, and the \texttt{res}.
+
+\noindent We traverse through the range of values for \texttt{nums} and add each value in the array to the \texttt{total}. While the \texttt{total} is less than \texttt{target}, we will either keep the \texttt{res} or change it for a new res. And remove the left boundary's value from the \texttt{arr}. If there is no value in the \texttt{nums}, we just return 0, less we return \texttt{res}
+
 
 \end{document}
