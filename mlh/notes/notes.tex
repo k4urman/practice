@@ -1064,6 +1064,17 @@ UX, service, and data access code are combined in single program. It is self-con
 
 \noindent Panics: a panic is an app shutting itself down. Linux has a special function call made for this, called abort. A panic is similar symptom to a trap but is much more purposeful. Apps have the feature built-in to protect user systems and data. Panics are mostly product-specific and often require knowledge of the source code. The line number of the source code is sometimes displayed with a panic. The error message usually includes useful information and you should be able to find information online.
 
+\noindent Very slow performance: sometimes called a hang. You can tell there is a problem because the program is not as fast as before. When investigating, you need to find out whether the process is hung, looping, or performing very slowly. A true hang is when the process is not consuming any CPU and is stuck waiting on a system call, which is different from a process that is looping and consuming CPU. The quickest way to resolve is to collect a set of stack traces over a period of time and use \texttt{strace} to see whether the process is making any progress at all. 
+
+\noindent Performance: the idea is to improve performance using better hardware. However, it is more of a business decision on whether that performance is worth it. Don't forget that buying new hardware can be cheaper than having to optimize for the current system and pay for developer costs.
+
+\noindent Unexpected behavior: a very special type of a problem where the application did not trigger error code paths. A good example would be the application returning gibberish. The common causes can be hardware issues, memory corruption, uninitialized memory, or a software bug causing a variable overflow. Usually, a subject matter expert will know a better approach to the problem.
+
+\subsection*{AI Native Troubleshooting}
+\noindent In addition to AI changing the speed of each step, it also changes what is even possible. AI coding agents can SSH into your servers, run diagnostic commands, read the output, and iterate on their own. Not only does it explain errors, but it can also actively investigate them. Instead of manually searching documentation or scrolling through Stack Overflow to understand an error message, you can paste it into an AI tool and get an explanation in seconds. Instead of trying to remember the exact \texttt{journalctl} flags for filtering logs by time range, you can just ask. And with agentic tools, you can go further - point an AI agent at your server and say "figure out why this service is failing" and watch it run \texttt{systemctl} status, check the logs, inspect the \texttt{config}, and report back with a diagnosis.
+
+\noindent One of the most underappreciated benefits of AI troubleshooting is that it teaches you while it works. The goal isn’t just to have AI solve the problem, but for you to grow your skills as an engineer while making forward progress. Watching the commands the AI runs, and the behaviors it shows, can help you improve your own skillset. This is particularly helpful when the AI is broken, or it’s faster to just do the work yourself. Even experienced Production Engineers are continually discovering interesting approaches to debugging issues from working with the AI agents.
+
 
 \end{enumerate}
 
