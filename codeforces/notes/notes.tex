@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{fourier-orns}
+\usepackage{algorithm, algpseudocode} % For pseudo code
+\usepackage{tabto}
+\usepackage{amsmath, amsthm, amssymb, amsfonts} % Linear algebra and logic related symbols
+\usepackage{color}
+\usepackage{fancyhdr} % Header
+\usepackage{enumitem} % More option for enumeration and itemization
+\usepackage{latexsym}
+\usepackage{multicol}
+\usepackage{fourier-orns}
+\usepackage{algorithm, algpseudocode} % For pseudo code
+\usepackage{tabto}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{color}
+\usepackage{fancyhdr} % Header
+\usepackage{enumitem} % More option for enumeration and itemization
+\usepackage{tikz}
+\usetikzlibrary{arrows} % graph
+\usepackage{url}
+\topmargin=-.01in    %0cm
+\textheight=9.0in     %24.1cm
+\evensidemargin=0in %0cm
+\oddsidemargin=0.0in  %-.3cm
+\textwidth=6.5in    %16.5cm
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Competitive Programming Notes - in C++}
+\author{Maninder (Kaurman) Kaur}
+\begin{document}
+
+\maketitle
+
+\section{Basics of Competitive Programming}
+\underline{\hspace{10cm}}
+
+\subsection{Input \& Output}
+This is the basic format of all code:
+\begin{lstlisting}[language=c, mathescape=true]
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    \\ insert content here
+    return 0;
+}
+\end{lstlisting}
+
+\noindent The two libraries are required, and let all libraries needed. There is no need to get other libraries, since it includes many such as \texttt{vector} or \texttt{cstring}. The line \texttt{using namespace std;} reduces redundancy. Lastly, we start our main function that always needs to return an integer value. This is where out content will lie 
+
+
+\noindent There are two important commands for input and output in C++. One is for input, called \texttt{cin} and the other is for output, \texttt{cout}. Always remember to add either \texttt{endl} or \texttt{\textbackslash n} at the end of any output to end the value.
+
+\begin{lstlisting}[language=c, mathescape=true]
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    cout << "number:" << n << endl;
+
+    return 0;
+}
+\end{lstlisting}
+
+\noindent The above code will take in a variable \texttt{n} which is an integer. The user will give this. Then we will output the text output and the number value the user gave. For example, if the user gave 4, the code will return: \texttt{\$ number: 4}. 
+
+
+\subsection{Control Statements}
+\noindent The most common control statement is an \texttt{if} statement. Given inputs, the function will do something if a condition is met. You can also have \texttt{if-elseif-else} or simply \texttt{if-else} statements.
+
+\begin{lstlisting}[language=c, mathescape=true]
+int main() {
+    int n;
+    cin >> n;
+
+    if(n > 0) {
+        cout << "The value is positive" << endl;
+    } else if(n == 0) {
+        cout << "The value is zero" << endl;
+    } else {
+        cout << "The value is negative" << endl;
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\noindent We are given a number from the user. The function will now see if it is positive, zero, or negative.
+
+\subsection{Loops}
+\noindent Loop are a command that repeats a set of instructions until a specific condition is met. There are 3 main different types of loops: a \texttt{for} loop, a \texttt{while} loop, and a \texttt{do-while} loop.
+
+\begin{lstlisting}[language=c, mathescape=true]
+int main() {
+    for(int i = 1; i < 6; i++) {
+        cout << i << endl;
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\noindent A \texttt{for} loop is a loop where you you have a variable that will increment for a certain amount of time. In that amount of time, whatever happens inside the brackets happen. In the above example, there is a variable \texttt{i} that starts 1 and goes up till 6. The inner bracket will happen 5 times. We will then increment the variable. The output will be \texttt{\$ 1 2 3 4 5}.
+
+
+
+
+
+
+
+
+
+\end{document}
