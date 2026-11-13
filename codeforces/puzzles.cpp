@@ -1,10 +1,5 @@
 /*
-A. Puzzles
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-
+337A. Puzzles
 The end of the school year is near and Ms. Manana, the teacher, will soon have to say goodbye to a yet another class. She decided to prepare a goodbye present for her n students and give each of them a jigsaw puzzle (which, as wikipedia states, is a tiling puzzle that requires the assembly of numerous small, often oddly shaped, interlocking and tessellating pieces).
 
 The shop assistant told the teacher that there are m puzzles in the shop, but they might differ in difficulty and size. Specifically, the first jigsaw puzzle consists of f1 pieces, the second one consists of f2 pieces and so on.
@@ -16,19 +11,9 @@ The first line contains space-separated integers n and m (2 ≤ n ≤ m�
 Output
 
 Print a single integer — the least possible difference the teacher can obtain.
-Examples
-Input
-Copy
 
 4 6
 10 12 10 7 5 22
 
-Output
-Copy
-
 5
-
-Note
-
-Sample 1. The class has 4 students. The shop sells 6 puzzles. If Ms. Manana buys the first four puzzles consisting of 10, 12, 10 and 7 pieces correspondingly, then the difference between the sizes of the largest and the smallest puzzle will be equal to 5. It is impossible to obtain a smaller difference. Note that the teacher can also buy puzzles 1, 3, 4 and 5 to obtain the difference 5.
 */
